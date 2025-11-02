@@ -48,10 +48,30 @@
         body {
             font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0;
-            background-color: var(--bg-color);
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f8f9fa 100%);
+            background-attachment: fixed;
             color: var(--text-color);
             line-height: 1.7;
             font-weight: 400;
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(20px, -20px) rotate(1deg); }
+            66% { transform: translate(-10px, 10px) rotate(-1deg); }
         }
         .container {
             max-width: 960px;
@@ -61,10 +81,13 @@
         .header {
             padding: 25px 0;
             border-bottom: 1px solid var(--border-color);
-            background-color: var(--bg-color);
+            background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 1000;
+            transition: all 0.3s ease;
         }
         .header .container {
             display: flex;
@@ -90,6 +113,36 @@
         #hero {
             padding: 100px 0;
             text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+            z-index: -1;
+        }
+        #hero::after {
+            content: '';
+            position: absolute;
+            bottom: 10%;
+            left: -5%;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, rgba(16, 185, 129, 0.08) 0%, rgba(37, 99, 235, 0.03) 100%);
+            border-radius: 50%;
+            animation: pulse 6s ease-in-out infinite reverse;
+            z-index: -1;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 0.1; }
         }
         #hero h1 {
             font-size: 3.5em;
@@ -245,11 +298,28 @@
             border-radius: 20px;
             font-size: 0.9em;
             font-weight: 500;
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
             cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+        .skill-tag::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
         }
         .skill-tag:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        }
+        .skill-tag:hover::before {
+            transform: translateX(100%);
         }
         .project-item {
             display: flex;
@@ -280,6 +350,23 @@
         }
         .project-item:hover::before {
             transform: scaleY(1);
+        }
+        .project-item::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 0;
+        }
+        .project-item:hover::after {
+            opacity: 1;
+            transform: scale(1.2);
         }
         .project-item:last-child { margin-bottom: 0; }
         .project-thumbnail {
@@ -375,6 +462,34 @@
         }
         .footer .social-links a:hover { color: var(--primary-color); }
         .footer p { margin-top: 25px; }
+        
+        /* 페이지 로드 애니메이션 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        .fade-in-delay-1 { animation-delay: 0.2s; }
+        .fade-in-delay-2 { animation-delay: 0.4s; }
+        .fade-in-delay-3 { animation-delay: 0.6s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 스크롤 애니메이션 */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         @media (max-width: 768px) {
             .header .nav-links {
@@ -460,12 +575,12 @@
 
     <main>
         <section id="hero" class="container">
-            <h1>사회 문제를 해결하는 <br><span class="gradient-text">기획하는 개발자</span></h1>
-            <p class="subtitle">
+            <h1 class="fade-in">사회 문제를 해결하는 <br><span class="gradient-text">기획하는 개발자</span></h1>
+            <p class="subtitle fade-in fade-in-delay-1">
                 <strong>관광경영학</strong> 전공의 도메인 지식으로 문제를 발견하고<br>
                 <strong>웹 기술과 데이터 분석</strong>으로 실질적인 솔루션을 구현합니다.
             </p>
-            <div class="hero-stats">
+            <div class="hero-stats fade-in fade-in-delay-2">
                 <div class="stat-item">
                     <span class="stat-number">7+</span>
                     <span class="stat-label">웹 프로젝트</span>
@@ -738,6 +853,49 @@
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
             });
+        });
+
+        // 스크롤 애니메이션
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+
+        // 페이지 로드 후 스크롤 애니메이션 요소들 관찰
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            const projectItems = document.querySelectorAll('.project-item');
+            
+            sections.forEach(section => {
+                section.classList.add('scroll-reveal');
+                observer.observe(section);
+            });
+            
+            projectItems.forEach((item, index) => {
+                item.classList.add('scroll-reveal');
+                item.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(item);
+            });
+        });
+
+        // 헤더 스크롤 효과
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(248, 249, 250, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = 'rgba(248, 249, 250, 0.95)';
+                header.style.boxShadow = 'none';
+            }
         });
     </script>
 
