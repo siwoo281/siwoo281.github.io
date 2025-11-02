@@ -1240,6 +1240,12 @@
                 </p>
 
                 <div class="awards-grid">
+                    <div class="award-card" data-award="disney-internship">
+                        <div class="award-icon">🚀</div>
+                        <h3>디즈니 인턴십, 없던 길을 만들다</h3>
+                        <p>문제 해결 & 실행력</p>
+                    </div>
+
                     <div class="award-card" data-award="future-project">
                         <div class="award-icon">🏆</div>
                         <h3>미래동행 프로젝트 대상</h3>
@@ -1406,6 +1412,13 @@
         const awardsModalBody = document.getElementById('awards-modal-body');
 
         const awardsData = {
+            'disney-internship': {
+                title: '디즈니 인턴십, 없던 길을 만들다',
+                whatIDid: '학교에 없는 디즈니월드 인턴십 프로그램에 참여하기 위해, 자매결연을 맺은 미국 대학 중 해당 프로그램을 운영하는 곳을 직접 찾아냈습니다. 이 정보를 근거로 국제처장님을 설득하여 미국 대학 담당자와 연결되었고, 화상 미팅을 통해 최종적으로 디즈니 리크루터와의 면접 기회를 스스로 만들어냈습니다.',
+                whatILearned: '비록 최종 합격하지는 못했지만, 이 경험을 통해 <strong>기회는 주어지는 것이 아니라, 명확한 논리와 끈질긴 실행력으로 직접 만들 수 있다</strong>는 것을 온몸으로 배웠습니다. \'안된다\'는 현실 앞에서 포기하는 대신, 문제를 분석하고 대안을 찾아 결국 원하는 목표 바로 앞까지 도달했던 이 과정은 저의 가장 큰 자산이 되었습니다.',
+                link: null,
+                linkText: null
+            },
             'future-project': {
                 title: '대전 서구 대학생 미래동행 프로젝트 대상',
                 whatIDid: '지역 생활환경 문제를 해결하기 위해, 팀원들과 함께 대전 갑천을 직접 현장조사하고 데이터를 수집했습니다. 이를 바탕으로 전문가 멘토링을 거쳐 실현 가능한 환경 개선 솔루션을 기획하고 발표하여 대상을 수상했습니다.',
