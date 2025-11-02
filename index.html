@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>최시우 | 기획하는 개발자 포트폴리오</title>
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* (스타일 코드는 이전과 동일합니다. 공간을 위해 생략) */
+        :root {
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --light-text-color: #6c757d;
+            --primary-color: #007bff;
+            --border-color: #dee2e6;
+            --card-bg-color: #ffffff;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            font-weight: 400;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header {
+            padding: 25px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .nav-links a {
+            color: var(--light-text-color);
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            font-size: 1em;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--primary-color); }
+        .hamburger { display: none; }
+        #hero {
+            padding: 100px 0;
+            text-align: left;
+        }
+        #hero h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            color: var(--text-color);
+        }
+        #hero .subtitle {
+            font-size: 1.5em;
+            color: var(--light-text-color);
+            margin: 0;
+            max-width: 700px;
+            font-weight: 400;
+        }
+        #hero .subtitle strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        .section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .section:last-of-type { border-bottom: none; }
+        .section-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+        }
+        .about-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+        }
+        .about-profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid var(--card-bg-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+        .about-content { flex-grow: 1; }
+        #about p {
+            font-size: 1.15em;
+            color: var(--text-color);
+            margin-top: 0;
+            margin-bottom: 25px;
+            max-width: 800px;
+        }
+        #about .skills-list {
+            font-size: 1.05em;
+            color: var(--light-text-color);
+            line-height: 2;
+        }
+        #about .skills-list strong {
+            color: var(--text-color);
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        .project-item {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 60px;
+            background-color: var(--card-bg-color);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: box-shadow 0.3s ease;
+        }
+        .project-item:hover {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        .project-item:last-child { margin-bottom: 0; }
+        .project-thumbnail {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .project-content { flex-grow: 1; }
+        .project-content h3 {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+        .project-content p {
+            font-size: 1.05em;
+            color: var(--light-text-color);
+            margin-bottom: 20px;
+        }
+        .project-tags { margin-bottom: 20px; }
+        .project-tags span {
+            background-color: #e9ecef;
+            color: var(--light-text-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            display: inline-block;
+            font-weight: 500;
+        }
+        .project-links a {
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 20px;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+        .project-links a i { margin-right: 6px; }
+        .project-links a:hover { color: var(--primary-color); }
+        .footer {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--light-text-color);
+            font-size: 0.95em;
+        }
+        .footer .social-links a {
+            color: var(--light-text-color);
+            font-size: 1.5em;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        .footer .social-links a:hover { color: var(--primary-color); }
+        .footer p { margin-top: 25px; }
+
+        @media (max-width: 768px) {
+            .header .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 76px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-color);
+                border-bottom: 1px solid var(--border-color);
+                padding: 10px 0;
+            }
+            .header .nav-links.active { display: flex; }
+            .nav-links a { margin: 10px 0; text-align: center; padding: 10px; }
+            .hamburger {
+                display: block;
+                font-size: 1.6em;
+                cursor: pointer;
+            }
+            #hero { padding: 60px 0; text-align: center; }
+            #hero h1 { font-size: 2.8em; }
+            .about-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .about-profile-img {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 30px;
+            }
+            .about-content { text-align: center; }
+            .project-item {
+                flex-direction: column; 
+                gap: 20px;
+                padding: 20px;
+            }
+            .project-thumbnail {
+                width: 100%;
+                height: 220px;
+            }
+            .project-content h3 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header" id="header">
+        <div class="container">
+            <a href="#" class="logo">최시우</a>
+            
+            <nav class="nav-links" id="navLinks">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="hamburger" id="hamburger">☰</div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="container">
+            <h1>기획하는 개발자 <br>최시우입니다.</h1>
+            <p class="subtitle">
+                <strong>관광경영학</strong> 전공 지식을 바탕으로 사회 문제를 발견하고<br>
+                <strong>웹 기술과 데이터</strong>를 활용해 실질적인 해결책을 만듭니다.
+            </p>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                
+                <div class="about-container">
+                    <img src="assets/profile.jpg" 
+                         alt="최시우 프로필 사진" 
+                         class="about-profile-img">
+                    
+                    <div class="about-content">
+                        <p>
+                            저는 지역 사회 문제에 대한 깊은 관심에서 출발하여, 아이디어를 현실로 구현할 수 있는 기술의 힘에 매료되었습니다.
+                            '도마시장 리빙랩' 프로젝트를 통해 현장의 목소리를 듣고 기획의 중요성을 배웠으며,
+                            '청년 고용 정책' 공모전을 준비하며 분산된 데이터를 통합하는 웹 기술의 가치를 깨달았습니다.
+                        </p>
+                        <p>
+                            단순히 코드를 작성하는 것을 넘어, 문제의 본질을 파악하고 사용자에게 가장 필요한 솔루션을
+                            제공하는 과정 자체를 즐깁니다.
+                        </p>
+                        <div class="skills-list">
+                            <strong>KEY SKILLS:</strong>
+                            <span>Python</span> ·
+                            <span>HTML/CSS</span> ·
+                            <span>JavaScript</span> ·
+                            <span>Data Analysis</span> ·
+                            <span>Project Planning</span> ·
+                            <span>GitHub</span> ·
+                            <span>Notion</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title">Projects</h2>
+
+                <div class="project-item">
+                    <img src="https://via.placeholder.com/300x200.png?text=ThemePark+Guide" alt="테마파크 여행 가이드" class="project-thumbnail">
+                    <div class="project-content">
+                        <h3>테마파크 여행 가이드 (Web App)</h3>
+                        <p>
+                            Python(Selenium/BS4)을 이용한 웹 크롤링, GitHub Actions를 통한 데이터 수집 자동화,
+                            API 연동 등 복잡한 기능을 구현한 웹 애플리케이션입니다. 
+                            사용자에게 테마파크 티켓 가격, 대기 시간 등 실시간 정보를 제공합니다.
+                        </p>
+                        <div class="project-tags">
+                            <span>#Python</span>
+                            <span>#Web Crawling</span>
+                            <span>#GitHub Actions</span>
+                            <span>#JavaScript</span>
+                            <span>#API</span>
+                            <span>#Web App</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://siwoo281.github.io/themepark-travel-guide" target="_blank">
+                                <i class="fas fa-rocket"></i> Live Site
+                            </a>
+                            <a href="https://github.com/siwoo281/themepark-travel-guide" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <img src="https://via.placeholder.com/300x200.png?text=Festival+Guide" alt="세계 축제 가이드" class="project-thumbnail">
+                    <div class="project-content">
+                        <h3>세계 축제 가이드 (Web App)</h3>
+                        <p>
+                            관광 전공 지식을 살려 기획한 프로젝트로, 전 세계의 다양한 축제 정보를
+                            API로 연동하여 사용자에게 맞춤형으로 제공하는 웹사이트입니다.
+                            JS 모듈화와 API 통신을 중심으로 개발했습니다.
+                        </p>
+                        <div class="project-tags">
+                            <span>#JavaScript</span>
+                            <span>#API</span>
+                            <span>#Web App</span>
+                            <span>#관광</span>
+                            <span>#기획</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://siwoo281.github.io/festival-travel-guide" target="_blank">
+                                <i class="fas fa-rocket"></i> Live Site
+                            </a>
+                            <a href="https://github.com/siwoo281/festival-travel-guide" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-item">
+                    <img src="https://via.placeholder.com/300x200.png?text=Youth+Policy+Portal" alt="청년 고용 정책 포털" class="project-thumbnail">
+                    <div class="project-content">
+                        <h3>청년 고용 정책 포털 (PRPGPRPG)</h3>
+                        <p>
+                            [청년 고용 정책] 공모전 아이디어를 바탕으로, 분산된 고용 정책 정보를
+                            통합 제공하는 웹 포털을 React/Vite 기반으로 구현한 프로젝트입니다.
+                        </p>
+                        <div class="project-tags">
+                            <span>#기획</span>
+                            <span>#공모전</span>
+                            <span>#React</span>
+                            <span>#Vite</span>
+                            <span>#JavaScript</span>
+                            <span>#Web App</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://siwoo281.github.io/prpgprpg" target="_blank">
+                                <i class="fas fa-rocket"></i> Live Site
+                            </a>
+                            <a href="https://github.com/siwoo281/prpgprpg" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <img src="https://via.placeholder.com/300x200.png?text=Tour+Calculator" alt="여행 비용 계산기" class="project-thumbnail">
+                    <div class="project-content">
+                        <h3>여행 비용 계산기 (Web App)</h3>
+                        <p>
+                            관광경영 전공 지식을 활용하여 만든 간단한 여행 경비 계산기입니다.
+                            순수 HTML, CSS, JavaScript를 사용하여 사용자 입력에 따라
+                            실시간으로 비용을 계산하고 합산하는 기능을 구현했습니다.
+                        </p>
+                        <div class="project-tags">
+                            <span>#HTML</span>
+                            <span>#CSS</span>
+                            <span>#JavaScript</span>
+                            <span>#Web App</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://siwoo281.github.io/tour-calc" target="_blank">
+                                <i class="fas fa-rocket"></i> Live Site
+                            </a>
+                            <a href="https://github.com/siwoo281/tour-calc" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <img src="https://via.placeholder.com/300x200.png?text=Decision+Helper" alt="의사결정 헬퍼" class="project-thumbnail">
+                    <div class="project-content">
+                        <h3>랜덤 의사결정 헬퍼 (Toy Project)</h3>
+                        <p>
+                            선택의 어려움을 겪는 사용자를 위한 간단한 의사결정 웹 앱입니다. 
+                            JavaScript의 DOM 조작과 이벤트 처리를 연습하기 위해 만들었습니다.
+                            사용자가 입력한 옵션 중 하나를 랜덤으로 선택합니다.
+                        </p>
+                        <div class="project-tags">
+                            <span>#HTML</span>
+                            <span>#CSS</span>
+                            <span>#JavaScript</span>
+                            <span>#Toy Project</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://siwoo281.github.io/decision_helper" target="_blank">
+                                <i class="fas fa-rocket"></i> Live Site
+                            </a>
+                            <a href="https://github.com/siwoo281/decision_helper" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <img src="https://via.placeholder.com/300x200.png?text=Doma+Market" alt="도마시장 리빙랩" class="project-thumbnail">
+                    <div class="project-content">
+                        <h3>도마시장 로컬 투어 (리빙랩 프로젝트)</h3>
+                        <p>
+                            대전 원도심 도마시장 활성화를 위해 외국인 유학생 대상 '로컬 푸드 투어'
+                            프로그램을 기획하고 운영했습니다. 
+                            (관련 데이터 분석 코드가 있다면 깃허브에 올리는 것을 추천합니다.)
+                        </p>
+                        <div class="project-tags">
+                            <span>#기획</span>
+                            <span>#리빙랩</span>
+                            <span>#지역문제해결</span>
+                            <span>#데이터분석</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" target="_blank">
+                                <i class="fas fa-file-alt"></i> 발표 자료 (Notion)
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class="fab fa-github"></i> 분석 코드 (GitHub)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/siwoo281" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:siwoo281@email.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="#" target="_blank" title="Notion Blog"><i class="fas fa-blog"></i></a>
+            </div>
+            <p>&copy; 2025 최시우. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>

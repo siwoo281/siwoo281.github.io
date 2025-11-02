@@ -1,0 +1,10 @@
+.DS_Store
+# macOS
+.Trash/
+
+# Node (if ever used)
+node_modules/
+
+# Editor
+.vscode/
+.idea/
