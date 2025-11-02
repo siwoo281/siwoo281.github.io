@@ -741,6 +741,189 @@
                 height: 200px;
             }
         }
+
+        /* Awards & Activities Styles */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .award-card {
+            background: var(--card-bg-color);
+            padding: 30px 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .award-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .award-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.15);
+        }
+        
+        .award-card:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .award-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            filter: grayscale(0.3);
+            transition: filter 0.3s ease;
+        }
+        
+        .award-card:hover .award-icon {
+            filter: grayscale(0);
+            transform: scale(1.1);
+        }
+        
+        .award-card h3 {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            color: var(--text-color);
+        }
+        
+        .award-card p {
+            color: var(--light-text-color);
+            margin: 0;
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+
+        /* Awards Modal Styles */
+        .awards-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        .awards-modal-content {
+            background-color: var(--card-bg-color);
+            margin: 5% auto;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .awards-modal-close {
+            color: var(--light-text-color);
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            transition: color 0.2s ease;
+        }
+        
+        .awards-modal-close:hover {
+            color: var(--text-color);
+        }
+        
+        .awards-modal h2 {
+            color: var(--text-color);
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .awards-modal h3 {
+            color: var(--primary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+        
+        .awards-modal p {
+            color: var(--text-color);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+        }
+        
+        .awards-modal .modal-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .awards-modal .modal-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .awards-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 20px;
+            }
+            
+            .award-card {
+                padding: 25px 20px;
+            }
+            
+            .awards-modal-content {
+                margin: 10% auto;
+                padding: 30px 25px;
+                width: 95%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -752,6 +935,7 @@
             <nav class="nav-links" id="navLinks">
                 <a href="#about">About</a>
                 <a href="#projects">Projects</a>
+                <a href="#awards">Awards</a>
                 <a href="#contact">Contact</a>
             </nav>
             <div class="hamburger" id="hamburger">☰</div>
@@ -1044,11 +1228,68 @@
                 </div>
             </div>
         </section>
+
+        <section id="awards" class="section">
+            <div class="container">
+                <h2 class="section-title">Awards & Activities</h2>
+                <p style="text-align: center; max-width: 600px; margin: -30px auto 50px; font-size: 1.1em; color: var(--light-text-color);">
+                    기획자의 시야를 넓힌 다양한 경험들입니다.
+                </p>
+
+                <div class="awards-grid">
+                    <div class="award-card" data-award="future-project">
+                        <div class="award-icon">🏆</div>
+                        <h3>미래동행 프로젝트 대상</h3>
+                        <p>지역 환경 문제 해결</p>
+                    </div>
+                    
+                    <div class="award-card" data-award="school-presentation">
+                        <div class="award-icon">🏆</div>
+                        <h3>교내 PT대회 최우수상</h3>
+                        <p>스토리텔링 & 커뮤니케이션</p>
+                    </div>
+                    
+                    <div class="award-card" data-award="regional-presentation">
+                        <div class="award-icon">🏆</div>
+                        <h3>충청권 PT대회 장려상</h3>
+                        <p>더 큰 무대에서의 검증</p>
+                    </div>
+                    
+                    <div class="award-card" data-award="sk-sunny">
+                        <div class="award-icon">🤝</div>
+                        <h3>SK SUNNY & 멘토링</h3>
+                        <p>사용자 중심 교육 기획</p>
+                    </div>
+                    
+                    <div class="award-card" data-award="samsung-resort">
+                        <div class="award-icon">🎢</div>
+                        <h3>삼성물산 리조트 Cast</h3>
+                        <p>현장 경험 & 문제해결</p>
+                    </div>
+                    
+                    <div class="award-card" data-award="crossworld">
+                        <div class="award-icon">🌏</div>
+                        <h3>크로스월드 문화체험</h3>
+                        <p>글로벌 감각 & 문화 이해</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <div id="lightbox-overlay" class="lightbox-overlay">
         <span class="lightbox-close">&times;</span>
         <img id="lightbox-image" class="lightbox-image" src="" alt="Project full-size image">
+    </div>
+
+    <!-- Awards Modal -->
+    <div id="awards-modal" class="awards-modal">
+        <div class="awards-modal-content">
+            <span class="awards-modal-close">&times;</span>
+            <div id="awards-modal-body">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+        </div>
     </div>
 
     <footer id="contact" class="footer">
@@ -1143,6 +1384,92 @@
             // Close only if the overlay itself is clicked, not the image
             if (e.target === lightboxOverlay) {
                 closeLightbox();
+            }
+        });
+
+        // --- Awards Modal Functionality ---
+        const awardsModal = document.getElementById('awards-modal');
+        const awardsModalClose = document.querySelector('.awards-modal-close');
+        const awardsModalBody = document.getElementById('awards-modal-body');
+
+        const awardsData = {
+            'future-project': {
+                title: '대전 서구 대학생 미래동행 프로젝트 대상',
+                whatIDid: '지역 생활환경 문제를 해결하기 위해, 팀원들과 함께 대전 갑천을 직접 현장조사하고 데이터를 수집했습니다. 이를 바탕으로 전문가 멘토링을 거쳐 실현 가능한 환경 개선 솔루션을 기획하고 발표하여 대상을 수상했습니다.',
+                whatILearned: '책상이 아닌 현장에서 직접 문제를 발견하고, 지역 주민 및 전문가와 함께 해결책을 만들어가는 \'리빙랩(Living Lab)\' 방식의 중요성을 체감했습니다. 실제 데이터와 현장의 목소리가 기획의 가장 중요한 시작점임을 배웠습니다.',
+                link: 'https://www.chungnamilbo.co.kr/news/articleView.html?idxno=800167',
+                linkText: '📰 충남일보 보도자료 보기'
+            },
+            'school-presentation': {
+                title: '교내 프레젠테이션 발표대회 최우수상',
+                whatIDid: '\'나의 꿈과 미래\'라는 추상적인 주제를 청중이 공감할 수 있는 스토리로 구조화하여 교내 발표대회 최우수상을 수상했습니다. 학교에서 제공하는 스피치 및 PPT 제작 교육을 통해 발표 기법을 체계적으로 학습했습니다.',
+                whatILearned: '좋은 기획은 결국 사람의 마음을 움직이는 \'설득\'의 과정이라는 것을 깨달았습니다. 복잡한 생각을 명확한 논리와 스토리로 구성하여 전달하는 커뮤니케이션 역량의 기초를 다졌습니다.',
+                link: null,
+                linkText: null
+            },
+            'regional-presentation': {
+                title: '충청권역 대학연합 프레젠테이션 발표대회 장려상',
+                whatIDid: '교내 대회 수상 후, 더 큰 무대인 충청권역 대학연합 발표대회에 도전했습니다. 다른 대학 학생들과 경쟁하며 더 높은 수준의 발표 기법과 내용 구성을 경험했습니다.',
+                whatILearned: '더 넓은 무대에서 검증받으며 발표의 중요성과 깊이를 이해하게 되었습니다. 경쟁을 통해 자신의 한계를 뛰어넘고 성장하는 법을 배웠습니다.',
+                link: null,
+                linkText: null
+            },
+            'sk-sunny': {
+                title: 'SK SUNNY 대학생 봉사단 & 멘토링',
+                whatIDid: 'SK SUNNY 봉사단에서 고등학생 눈높이에 맞춰 역할극과 팸플릿을 활용한 사이버범죄 예방 교육을 기획하고 실행했습니다. 또한, 신입생 멘토로 활동하며 대학 생활 적응을 위한 맞춤형 로드맵을 함께 설계해주었습니다.',
+                whatILearned: '메시지를 전달할 때, \'무엇을\' 말하는가보다 \'어떻게\' 전달하는가가 더 중요할 수 있다는 것을 배웠습니다. 사용자의 특성을 먼저 파악하고 그에 맞는 최적의 경험(UX)을 설계하는 기획의 기본을 실습했습니다.',
+                link: null,
+                linkText: null
+            },
+            'samsung-resort': {
+                title: '삼성물산 리조트부문 Cast',
+                whatIDid: '수륙양용차와 사파리 트램을 운전하며 매일 수천 명 고객의 안전과 행복을 책임졌습니다. 특히 운행 중 차량 RPM 바가 빠져 제어가 불가능한 돌발 상황에서, 침착하게 무전으로 상황을 전파하고 경험을 바탕으로 차량을 안전하게 멈춰 인명사고를 막았습니다.',
+                whatILearned: '고객의 목소리(VOC)와 현장 관찰이 서비스 개선의 핵심임을 배웠습니다. 수많은 돌발 상황과 비상조치훈련을 통해, 어떤 위기에서도 침착하게 문제를 분석하고 명확한 커뮤니케이션으로 최적의 해결책을 찾아내는 현장 중심의 문제 해결 능력을 길렀습니다.',
+                link: null,
+                linkText: null
+            },
+            'crossworld': {
+                title: '크로스월드 해외 문화체험',
+                whatIDid: '교내 크로스월드 프로그램을 통해 베트남과 미얀마 친구들과 함께 베트남 다낭으로 여행을 떠났습니다. 서로의 문화를 직접 체험하고 교류하며, 다양한 국가 출신의 유학생들과 깊이 있는 소통을 나누었습니다.',
+                whatILearned: '다양한 문화적 배경을 가진 사용자들을 이해하는 글로벌 감각을 기를 수 있었습니다. 문화의 차이를 존중하면서도 공통점을 찾아 소통하는 방법을 배웠으며, 이는 나중에 \'도마시장 리빙랩\' 프로젝트에서 외국인 유학생을 타겟으로 한 서비스를 기획할 때 큰 도움이 되었습니다.',
+                link: null,
+                linkText: null
+            }
+        };
+
+        document.querySelectorAll('.award-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const awardKey = card.getAttribute('data-award');
+                const data = awardsData[awardKey];
+                
+                let linkHtml = '';
+                if (data.link) {
+                    linkHtml = `<a href="${data.link}" target="_blank" class="modal-link">${data.linkText}</a>`;
+                }
+                
+                awardsModalBody.innerHTML = `
+                    <h2>${data.title}</h2>
+                    <h3>어떤 일을 했나?</h3>
+                    <p>${data.whatIDid}</p>
+                    <h3>무엇을 배웠나?</h3>
+                    <p>${data.whatILearned}</p>
+                    ${linkHtml}
+                `;
+                
+                awardsModal.style.display = 'block';
+                document.body.classList.add('no-scroll');
+            });
+        });
+
+        function closeAwardsModal() {
+            awardsModal.style.display = 'none';
+            document.body.classList.remove('no-scroll');
+        }
+
+        awardsModalClose.addEventListener('click', closeAwardsModal);
+        awardsModal.addEventListener('click', e => {
+            if (e.target === awardsModal) {
+                closeAwardsModal();
             }
         });
     </script>
