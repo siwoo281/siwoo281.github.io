@@ -955,19 +955,13 @@
         // 페이지 로드 후 스크롤 애니메이션 요소들 관찰
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('.section');
-            const projectItems = document.querySelectorAll('.project-item');
             
             sections.forEach(section => {
                 section.classList.add('scroll-reveal');
                 observer.observe(section);
             });
-            
-            projectItems.forEach((item, index) => {
-                item.classList.add('scroll-reveal');
-                // 프로젝트 아이템들이 순차적으로 나타나도록 지연 시간 설정 (더 빠르고 경쾌하게)
-                item.style.transitionDelay = `${(index % 4) * 0.08}s`;
-                observer.observe(item);
-            });
+
+            // .project-item에 대한 개별 애니메이션은 제거하여 즉시 로드되도록 함
         });
 
         // 헤더 스크롤 효과
