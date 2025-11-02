@@ -638,6 +638,96 @@
                 font-size: 1em;
             }
         }
+
+        /* Lightbox (Image Viewer) Styles */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox-overlay.visible {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox-image {
+            max-width: 90%;
+            max-height: 85%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .lightbox-overlay.visible .lightbox-image {
+            transform: scale(1);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .lightbox-close:hover {
+            color: #ccc;
+        }
+        body.no-scroll {
+            overflow: hidden;
+        }
+        .project-thumbnail-link {
+            display: block;
+            cursor: zoom-in;
+            position: relative;
+            width: 300px;
+            height: 200px;
+            flex-shrink: 0;
+        }
+        .project-thumbnail-link img {
+            width: 100%;
+            height: 100%;
+        }
+        .project-thumbnail-link::after {
+            content: '\f00e'; /* Font Awesome zoom icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            background: rgba(37, 99, 235, 0.7);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .project-thumbnail-link:hover::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        @media (max-width: 768px) {
+            .project-thumbnail-link {
+                width: 100%;
+                height: 200px;
+            }
+        }
     </style>
 </head>
 <body>
