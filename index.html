@@ -477,6 +477,24 @@
 
         // 페이지 로드 후 스크롤 애니메이션 요소들 관찰
         document.addEventListener('DOMContentLoaded', () => {
+            // 새로고침 시 해시(#awards 등)로 강제 점프되는 문제 방지
+            // - 새로고침(reload)인 경우에만 해시를 제거하고 상단으로 이동
+            try {
+                const nav = performance.getEntriesByType('navigation')[0];
+                const isReload = (nav && nav.type === 'reload') || (performance.navigation && performance.navigation.type === 1);
+                if (isReload && window.location.hash) {
+                    // 해시 제거 (URL 정리)
+                    history.replaceState(null, '', window.location.pathname + window.location.search);
+                    // 스크롤 복원 비활성화 후 상단으로 이동
+                    if ('scrollRestoration' in history) {
+                        history.scrollRestoration = 'manual';
+                    }
+                    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+                }
+            } catch (e) {
+                // 성능 API 미지원 브라우저 대응: 무시
+            }
+
             const sections = document.querySelectorAll('.section');
             
             sections.forEach(section => {
