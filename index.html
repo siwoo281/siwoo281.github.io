@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>최시우 | 기획하는 개발자 포트폴리오</title>
     
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="관광경영학 전공 지식을 바탕으로 사회 문제를 발견하고 웹 기술과 데이터를 활용해 실질적인 해결책을 만드는 기획하는 개발자 최시우입니다.">
+    <meta name="keywords" content="포트폴리오, 웹개발자, 프론트엔드, Python, JavaScript, 기획, 관광경영">
+    <meta name="author" content="최시우">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="최시우 | 기획하는 개발자 포트폴리오">
+    <meta property="og:description" content="관광경영학 전공 지식을 바탕으로 사회 문제를 발견하고 웹 기술과 데이터를 활용해 실질적인 해결책을 만드는 기획하는 개발자">
+    <meta property="og:url" content="https://siwoo281.github.io">
+    <meta property="og:image" content="https://siwoo281.github.io/assets/profile.jpg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="최시우 | 기획하는 개발자 포트폴리오">
+    <meta name="twitter:description" content="관광경영학 전공 지식을 바탕으로 사회 문제를 발견하고 웹 기술과 데이터를 활용해 실질적인 해결책을 만드는 기획하는 개발자">
+    <meta name="twitter:image" content="https://siwoo281.github.io/assets/profile.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -14,9 +35,14 @@
             --bg-color: #f8f9fa;
             --text-color: #212529;
             --light-text-color: #6c757d;
-            --primary-color: #007bff;
+            --primary-color: #2563eb;
+            --primary-light: #3b82f6;
+            --accent-color: #10b981;
             --border-color: #dee2e6;
             --card-bg-color: #ffffff;
+            --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
         }
         html { scroll-behavior: smooth; }
         body {
@@ -84,6 +110,34 @@
             color: var(--text-color);
             font-weight: 600;
         }
+        .gradient-text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            display: block;
+            font-size: 2.5em;
+            font-weight: 800;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+        .stat-label {
+            display: block;
+            font-size: 0.9em;
+            color: var(--light-text-color);
+            margin-top: 5px;
+            font-weight: 500;
+        }
         .section {
             padding: 80px 0;
             border-bottom: 1px solid var(--border-color);
@@ -134,13 +188,30 @@
             gap: 30px;
             margin-bottom: 60px;
             background-color: var(--card-bg-color);
-            padding: 25px;
-            border-radius: 10px;
+            padding: 30px;
+            border-radius: 16px;
             border: 1px solid var(--border-color);
-            transition: box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
         }
         .project-item:hover {
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 40px rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+        .project-item:hover::before {
+            transform: scaleY(1);
         }
         .project-item:last-child { margin-bottom: 0; }
         .project-thumbnail {
@@ -221,6 +292,16 @@
             }
             #hero { padding: 60px 0; text-align: center; }
             #hero h1 { font-size: 2.8em; }
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+            .hero-stats {
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+            }
             .about-container {
                 flex-direction: column;
                 align-items: center;
@@ -261,11 +342,25 @@
 
     <main>
         <section id="hero" class="container">
-            <h1>기획하는 개발자 <br>최시우입니다.</h1>
+            <h1>사회 문제를 해결하는 <br><span class="gradient-text">기획하는 개발자</span></h1>
             <p class="subtitle">
-                <strong>관광경영학</strong> 전공 지식을 바탕으로 사회 문제를 발견하고<br>
-                <strong>웹 기술과 데이터</strong>를 활용해 실질적인 해결책을 만듭니다.
+                <strong>관광경영학</strong> 전공의 도메인 지식으로 문제를 발견하고<br>
+                <strong>웹 기술과 데이터 분석</strong>으로 실질적인 솔루션을 구현합니다.
             </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">6+</span>
+                    <span class="stat-label">완성 프로젝트</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3+</span>
+                    <span class="stat-label">기술 스택</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1+</span>
+                    <span class="stat-label">년 개발 경험</span>
+                </div>
+            </div>
         </section>
 
         <section id="about" class="section">
@@ -473,8 +568,9 @@
         <div class="container">
             <div class="social-links">
                 <a href="https://github.com/siwoo281" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="mailto:siwoo281@email.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a>
-                <a href="#" target="_blank" title="Notion Blog"><i class="fas fa-blog"></i></a>
+                <a href="mailto:siwoo281@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.notion.so/siwoo281" target="_blank" title="Notion Blog"><i class="fas fa-blog"></i></a>
+                <a href="https://www.linkedin.com/in/siwoo281" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
             </div>
             <p>&copy; 2025 최시우. All rights reserved.</p>
         </div>
@@ -491,6 +587,26 @@
                 navLinks.classList.remove('active');
             });
         });
+    </script>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "최시우",
+        "jobTitle": "기획하는 개발자",
+        "description": "관광경영학 전공 지식을 바탕으로 사회 문제를 발견하고 웹 기술과 데이터를 활용해 실질적인 해결책을 만드는 개발자",
+        "url": "https://siwoo281.github.io",
+        "sameAs": [
+            "https://github.com/siwoo281"
+        ],
+        "knowsAbout": ["Python", "JavaScript", "HTML/CSS", "Data Analysis", "Project Planning", "GitHub", "Web Development"],
+        "alumniOf": {
+            "@type": "Organization",
+            "name": "관광경영학과"
+        }
+    }
     </script>
 
 </body>
