@@ -191,54 +191,6 @@
             margin-top: 5px;
             font-weight: 500;
         }
-        
-        /* Hero Intro 스타일 */
-        .hero-intro {
-            margin-bottom: 40px;
-            text-align: center;
-        }
-        .intro-greeting {
-            font-size: 1.2em;
-            color: var(--light-text-color);
-            margin: 0 0 15px 0;
-            font-weight: 400;
-        }
-        .intro-message {
-            font-size: 1.4em;
-            line-height: 1.6;
-            margin: 0 0 20px 0;
-            color: var(--text-color);
-        }
-        .intro-highlight {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
-            font-size: 1.1em;
-        }
-        .intro-name {
-            font-size: 2.2em;
-            font-weight: 700;
-            margin: 0;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-        }
-        .intro-name::after {
-            content: '✨';
-            position: absolute;
-            right: -40px;
-            top: 0;
-            font-size: 0.6em;
-            animation: sparkle 2s ease-in-out infinite;
-        }
-        @keyframes sparkle {
-            0%, 100% { opacity: 1; transform: rotate(0deg) scale(1); }
-            50% { opacity: 0.7; transform: rotate(180deg) scale(1.2); }
-        }
         .section {
             padding: 80px 0;
             border-bottom: 1px solid var(--border-color);
@@ -560,10 +512,6 @@
             }
             #hero { padding: 60px 0; text-align: center; }
             #hero h1 { font-size: 2.8em; }
-            .hero-intro { margin-bottom: 30px; }
-            .intro-message { font-size: 1.2em; }
-            .intro-name { font-size: 1.8em; }
-            .intro-name::after { right: -25px; }
             .hero-stats {
                 flex-direction: column;
                 gap: 20px;
@@ -627,21 +575,12 @@
 
     <main>
         <section id="hero" class="container">
-            <div class="hero-intro fade-in">
-                <p class="intro-greeting">안녕하세요 👋</p>
-                <p class="intro-message">
-                    <span class="intro-highlight">행복을 만들어주는 사람</span><br>
-                    사람들을 즐겁게 만들어주고픈 개발자
-                </p>
-                <h2 class="intro-name">최시우입니다</h2>
-            </div>
-            
-            <h1 class="fade-in fade-in-delay-1">일상의 문제를 해결하며 <br><span class="gradient-text">사람들의 삶을 개선하는 개발자</span></h1>
-            <p class="subtitle fade-in fade-in-delay-2">
+            <h1 class="fade-in">사회 문제를 해결하는 <br><span class="gradient-text">기획하는 개발자</span></h1>
+            <p class="subtitle fade-in fade-in-delay-1">
                 <strong>관광경영학</strong> 전공의 도메인 지식으로 문제를 발견하고<br>
                 <strong>웹 기술과 데이터 분석</strong>으로 실질적인 솔루션을 구현합니다.
             </p>
-            <div class="hero-stats fade-in fade-in-delay-3">
+            <div class="hero-stats fade-in fade-in-delay-2">
                 <div class="stat-item">
                     <span class="stat-number">7+</span>
                     <span class="stat-label">웹 프로젝트</span>
