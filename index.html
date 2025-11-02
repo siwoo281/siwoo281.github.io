@@ -25,942 +25,14 @@
     <meta name="twitter:image" content="https://siwoo281.github.io/assets/profile.JPG">    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <style>
-        /* (스타일 코드는 이전과 동일합니다. 공간을 위해 생략) */
-        :root {
-            --bg-color: #f8f9fa;
-            --text-color: #212529;
-            --light-text-color: #6c757d;
-            --primary-color: #2563eb;
-            --primary-light: #3b82f6;
-            --accent-color: #10b981;
-            --border-color: #dee2e6;
-            --card-bg-color: #ffffff;
-            --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
-            --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-        }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f8f9fa 100%);
-            background-attachment: fixed;
-            color: var(--text-color);
-            line-height: 1.7;
-            font-weight: 400;
-            position: relative;
-            overflow-x: hidden;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            animation: float 20s ease-in-out infinite;
-            z-index: -1;
-        }
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(20px, -20px) rotate(1deg); }
-            66% { transform: translate(-10px, 10px) rotate(-1deg); }
-        }
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .header {
-            padding: 25px 0;
-            border-bottom: 1px solid var(--border-color);
-            background: rgba(248, 249, 250, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        .header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            font-size: 1.4em;
-            font-weight: 700;
-            color: var(--text-color);
-            text-decoration: none;
-        }
-        .nav-links a {
-            color: var(--light-text-color);
-            text-decoration: none;
-            margin-left: 25px;
-            font-weight: 500;
-            font-size: 1em;
-            transition: color 0.3s ease;
-        }
-        .nav-links a:hover { color: var(--primary-color); }
-        .hamburger { display: none; }
-        #hero {
-            padding: 100px 0;
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-        }
-        #hero::before {
-            content: '';
-            position: absolute;
-            top: 20%;
-            right: -10%;
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-            border-radius: 50%;
-            animation: pulse 4s ease-in-out infinite;
-            z-index: -1;
-        }
-        #hero::after {
-            content: '';
-            position: absolute;
-            bottom: 10%;
-            left: -5%;
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(45deg, rgba(16, 185, 129, 0.08) 0%, rgba(37, 99, 235, 0.03) 100%);
-            border-radius: 50%;
-            animation: pulse 6s ease-in-out infinite reverse;
-            z-index: -1;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
-            50% { transform: scale(1.1) rotate(180deg); opacity: 0.1; }
-        }
-        #hero h1 {
-            font-size: 3.2em;
-            font-weight: 700;
-            margin: 0 0 15px 0;
-            line-height: 1.3;
-            letter-spacing: -0.5px;
-            color: var(--text-color);
-        }
-        #hero h1 .highlight-text {
-            color: #ee5a24;
-            font-weight: 800;
-            font-size: 1.05em;
-        }
-        #hero .subtitle {
-            font-size: 1.4em;
-            color: var(--light-text-color);
-            margin: 0;
-            max-width: 700px;
-            font-weight: 400;
-            line-height: 1.6;
-        }
-        #hero .subtitle strong {
-            color: var(--primary-color);
-            font-weight: 700;
-            font-size: 1.05em;
-            background: linear-gradient(135deg, var(--primary-color), #1e40af);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .gradient-text {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .name-text {
-            color: var(--text-color);
-            font-weight: 800;
-        }
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            margin-top: 40px;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-number {
-            display: block;
-            font-size: 2.8em;
-            font-weight: 900;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-            text-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
-        }
-        .stat-label {
-            display: block;
-            font-size: 0.95em;
-            color: var(--text-color);
-            margin-top: 8px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .section {
-            padding: 80px 0;
-            border-bottom: 1px solid var(--border-color);
-            position: relative;
-        }
-        .section:last-of-type { border-bottom: none; }
-        .section:nth-child(even) {
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-        }
-        .section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.03) 0%, transparent 70%);
-            border-radius: 50%;
-            z-index: 0;
-        }
-        .section-title {
-            font-size: 1.1em;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 50px;
-            position: relative;
-            display: inline-block;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: var(--gradient-primary);
-            border-radius: 3px;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
-        }
-        .about-container {
-            display: flex;
-            align-items: flex-start;
-            gap: 40px;
-            position: relative;
-        }
-        .about-container::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 100px;
-            height: 100px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            opacity: 0.1;
-            z-index: -1;
-        }
-        .about-profile-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid transparent;
-            background: var(--gradient-primary);
-            padding: 4px;
-            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.2);
-            flex-shrink: 0;
-            transition: transform 0.3s ease;
-        }
-        .about-profile-img:hover {
-            transform: scale(1.05);
-        }
-        .about-content { flex-grow: 1; }
-        .about-intro {
-            font-size: 1.15em;
-            color: var(--text-color);
-            margin-bottom: 40px;
-            line-height: 1.8;
-            border-left: 4px solid var(--primary-color);
-            padding-left: 20px;
-        }
-        .about-story {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        .story-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-        }
-        .story-icon {
-            font-size: 2.5em;
-            line-height: 1;
-        }
-        .story-content h4 {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: var(--text-color);
-            margin: 0 0 10px 0;
-        }
-        .story-content p {
-            font-size: 1.05em;
-            color: var(--light-text-color);
-            margin: 0;
-            line-height: 1.7;
-        }
-        .about-quote {
-            margin: 40px 0;
-            padding: 25px;
-            border-left: 5px solid;
-            border-image: var(--gradient-primary) 1;
-            background-color: var(--card-bg-color);
-            font-size: 1.15em;
-            font-style: italic;
-            color: var(--text-color);
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.08);
-        }
-        #about p {
-            font-size: 1.15em;
-            color: var(--text-color);
-            margin-top: 0;
-            margin-bottom: 25px;
-            max-width: 800px;
-        }
-        #about .skills-list {
-            font-size: 1.05em;
-            color: var(--light-text-color);
-            line-height: 2;
-            margin-top: 30px;
-        }
-        #about .skills-list strong {
-            color: var(--text-color);
-            font-weight: 700;
-            margin-right: 10px;
-            display: block;
-            margin-bottom: 20px;
-            font-size: 1.1em;
-            letter-spacing: 0.5px;
-        }
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .skill-tag {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            cursor: default;
-            position: relative;
-            overflow: hidden;
-        }
-        .skill-tag::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s;
-        }
-        .skill-tag:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
-        }
-        .skill-tag:hover::before {
-            transform: translateX(100%);
-        }
-        .project-item {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 60px;
-            background-color: var(--card-bg-color);
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .project-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gradient-primary);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-        .project-item:hover {
-            box-shadow: 0 10px 40px rgba(37, 99, 235, 0.1);
-            transform: translateY(-2px);
-        }
-        .project-item:hover::before {
-            transform: scaleY(1);
-        }
-        .project-item::after {
-            content: '';
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-            border-radius: 50%;
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 0;
-        }
-        .project-item:hover::after {
-            opacity: 1;
-            transform: scale(1.2);
-        }
-        .project-item:last-child { margin-bottom: 0; }
-        .project-thumbnail {
-            width: 300px;
-            height: 200px;
-            object-fit: cover;
-            object-position: center;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            flex-shrink: 0;
-            background-color: var(--bg-color);
-        }
-        .project-thumbnail.large-image {
-            object-fit: contain;
-            background-color: #f8f9fa;
-            padding: 10px;
-        }
-        .project-content { flex-grow: 1; }
-        .project-content h3 {
-            font-size: 1.7em;
-            font-weight: 800;
-            margin-top: 0;
-            margin-bottom: 15px;
-            color: var(--text-color);
-            line-height: 1.3;
-            position: relative;
-        }
-        .project-content h3::before {
-            content: '';
-            position: absolute;
-            left: -5px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: var(--gradient-primary);
-            border-radius: 2px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .project-item:hover .project-content h3::before {
-            opacity: 1;
-        }
-        .project-content p {
-            font-size: 1.05em;
-            color: var(--light-text-color);
-            margin-bottom: 20px;
-            line-height: 1.7;
-        }
-        .project-content p strong {
-            color: var(--text-color);
-            font-weight: 700;
-            font-size: 1.02em;
-        }
-        .project-content p em {
-            color: var(--accent-color);
-            font-style: normal;
-            font-weight: 600;
-            font-size: 0.95em;
-            background: rgba(16, 185, 129, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-top: 8px;
-            display: inline-block;
-        }
-        .project-tags { margin-bottom: 20px; }
-        .project-tags span {
-            background-color: #e9ecef;
-            color: var(--light-text-color);
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.9em;
-            margin-right: 8px;
-            margin-bottom: 8px;
-            display: inline-block;
-            font-weight: 500;
-        }
-        .project-links {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-top: 25px;
-        }
-        .project-links a {
-            text-decoration: none;
-            font-weight: 700;
-            padding: 14px 24px;
-            border-radius: 12px;
-            display: inline-flex;
-            align-items: center;
-            font-size: 0.95em;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.320, 1.275);
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-            letter-spacing: 0.3px;
-        }
-        .project-links a i { 
-            margin-right: 10px;
-            font-size: 1.2em;
-            transition: transform 0.3s ease;
-        }
-        .project-links a.btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            border: 2px solid transparent;
-        }
-        .project-links a.btn-primary:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-        }
-        .project-links a.btn-primary:hover i {
-            transform: translateX(2px);
-        }
-        .project-links a.btn-secondary {
-            background: rgba(255, 255, 255, 0.9);
-            color: var(--text-color);
-            border: 2px solid #e2e8f0;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-        .project-links a.btn-secondary:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-            background: rgba(37, 99, 235, 0.08);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
-        }
-        .project-links a.btn-secondary:hover i {
-            transform: rotate(360deg);
-        }
-        .footer {
-            text-align: center;
-            padding: 60px 0;
-            color: var(--light-text-color);
-            font-size: 0.95em;
-        }
-        .footer .social-links a {
-            color: var(--light-text-color);
-            font-size: 1.5em;
-            margin: 0 15px;
-            transition: color 0.3s ease;
-        }
-        .footer .social-links a:hover { color: var(--primary-color); }
-        .footer p { margin-top: 25px; }
-        
-        /* 페이지 로드 애니메이션 */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s ease forwards;
-        }
-        .fade-in-delay-1 { animation-delay: 0.2s; }
-        .fade-in-delay-2 { animation-delay: 0.4s; }
-        .fade-in-delay-3 { animation-delay: 0.6s; }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* 스크롤 애니메이션 */
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1);
-        }
-        .scroll-reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (max-width: 768px) {
-            .header .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 76px;
-                left: 0;
-                width: 100%;
-                background-color: var(--bg-color);
-                border-bottom: 1px solid var(--border-color);
-                padding: 10px 0;
-            }
-            .header .nav-links.active { display: flex; }
-            .nav-links a { margin: 10px 0; text-align: center; padding: 10px; }
-            .hamburger {
-                display: block;
-                font-size: 1.6em;
-                cursor: pointer;
-            }
-            #hero { padding: 60px 0; text-align: center; }
-            #hero h1 { 
-                font-size: 2.4em; 
-                line-height: 1.4; 
-            }
-            #hero .subtitle { font-size: 1.2em; }
-            .stat-number { font-size: 2.2em; }
-            .stat-label { font-size: 0.85em; }
-            .hero-stats {
-                flex-direction: column;
-                gap: 20px;
-                align-items: center;
-            }
-            .hero-stats {
-                display: flex;
-                justify-content: center;
-                gap: 30px;
-            }
-            .about-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            .about-profile-img {
-                width: 150px;
-                height: 150px;
-                margin-bottom: 30px;
-            }
-            .about-content { text-align: center; }
-            .skill-tags {
-                justify-content: center;
-            }
-            .project-item {
-                flex-direction: column; 
-                gap: 20px;
-                padding: 20px;
-            }
-            .project-thumbnail {
-                width: 100%;
-                height: 200px;
-                object-fit: cover;
-                object-position: center;
-            }
-            .project-content h3 { font-size: 1.5em; }
-            .project-links {
-                flex-direction: column;
-                gap: 12px;
-                margin-top: 20px;
-            }
-            .project-links a {
-                text-align: center;
-                justify-content: center;
-                padding: 16px 20px;
-                font-size: 1em;
-            }
-        }
-
-        /* Lightbox (Image Viewer) Styles */
-        .lightbox-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .lightbox-overlay.visible {
-            display: flex;
-            opacity: 1;
-        }
-        .lightbox-image {
-            max-width: 90%;
-            max-height: 85%;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-        .lightbox-overlay.visible .lightbox-image {
-            transform: scale(1);
-        }
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 35px;
-            color: #fff;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-        .lightbox-close:hover {
-            color: #ccc;
-        }
-        body.no-scroll {
-            overflow: hidden;
-        }
-        .project-thumbnail-link {
-            display: block;
-            cursor: zoom-in;
-            position: relative;
-            width: 300px;
-            height: 200px;
-            flex-shrink: 0;
-        }
-        .project-thumbnail-link img {
-            width: 100%;
-            height: 100%;
-        }
-        .project-thumbnail-link::after {
-            content: '\f00e'; /* Font Awesome zoom icon */
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            background: rgba(37, 99, 235, 0.7);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-        .project-thumbnail-link:hover::after {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-        @media (max-width: 768px) {
-            .project-thumbnail-link {
-                width: 100%;
-                height: 200px;
-            }
-        }
-
-        /* Awards & Activities Styles */
-        .awards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-        }
-        
-        .award-card {
-            background: var(--card-bg-color);
-            padding: 30px 25px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .award-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gradient-primary);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-        
-        .award-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.15);
-        }
-        
-        .award-card:hover::before {
-            transform: scaleY(1);
-        }
-        
-        .award-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-            filter: grayscale(0.3);
-            transition: filter 0.3s ease;
-        }
-        
-        .award-card:hover .award-icon {
-            filter: grayscale(0);
-            transform: scale(1.1);
-        }
-        
-        .award-card h3 {
-            font-size: 1.3em;
-            font-weight: 700;
-            margin: 0 0 10px 0;
-            color: var(--text-color);
-        }
-        
-        .award-card p {
-            color: var(--light-text-color);
-            margin: 0;
-            font-size: 0.95em;
-            line-height: 1.4;
-        }
-
-        /* Awards Modal Styles */
-        .awards-modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
-        
-        .awards-modal-content {
-            background-color: var(--card-bg-color);
-            margin: 5% auto;
-            padding: 40px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: modalSlideIn 0.3s ease;
-        }
-        
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        .awards-modal-close {
-            color: var(--light-text-color);
-            float: right;
-            font-size: 32px;
-            font-weight: bold;
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            transition: color 0.2s ease;
-        }
-        
-        .awards-modal-close:hover {
-            color: var(--text-color);
-        }
-        
-        .awards-modal h2 {
-            color: var(--text-color);
-            margin-top: 0;
-            margin-bottom: 25px;
-            font-size: 1.8em;
-            font-weight: 800;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .awards-modal h3 {
-            color: var(--primary-color);
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-            font-weight: 700;
-        }
-        
-        .awards-modal p {
-            color: var(--text-color);
-            line-height: 1.7;
-            margin-bottom: 20px;
-            font-size: 1.05em;
-        }
-        
-        .awards-modal .modal-link {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 24px;
-            background: var(--gradient-primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .awards-modal .modal-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
-        }
-
-        @media (max-width: 768px) {
-            .awards-grid {
-                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-                gap: 20px;
-            }
-            
-            .award-card {
-                padding: 25px 20px;
-            }
-            
-            .awards-modal-content {
-                margin: 10% auto;
-                padding: 30px 25px;
-                width: 95%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <a href="#hero" class="skip-link">본문 바로가기</a>
 
     <header class="header" id="header">
         <div class="container">
@@ -1006,7 +78,7 @@
                 <div class="about-container">
                 <img src="assets/profile.JPG" 
                          alt="최시우 프로필 사진" 
-                    class="about-profile-img" loading="lazy" decoding="async">
+                    class="about-profile-img" loading="lazy" decoding="async" width="200" height="200">
                     
                     <div class="about-content">
                         <div class="about-intro">
@@ -1065,7 +137,7 @@
 
                 <div class="project-item">
                     <a href="assets/테마파크여행가이드.png" class="project-thumbnail-link">
-                        <img src="assets/테마파크여행가이드.png" alt="테마파크 여행 가이드" class="project-thumbnail large-image" loading="lazy" decoding="async">
+                        <img src="assets/테마파크여행가이드.png" alt="테마파크 여행 가이드" class="project-thumbnail large-image" loading="lazy" decoding="async" width="300" height="200">
                     </a>
                     <div class="project-content">
                         <h3>테마파크 여행 가이드 (Web App)</h3>
@@ -1097,7 +169,7 @@
 
                 <div class="project-item">
                     <a href="assets/캠퍼스헬퍼.png" class="project-thumbnail-link">
-                        <img src="assets/캠퍼스헬퍼.png" alt="캠퍼스 헬퍼 - 배재대학교 시간표 웹앱" class="project-thumbnail large-image" loading="lazy" decoding="async">
+                        <img src="assets/캠퍼스헬퍼.png" alt="캠퍼스 헬퍼 - 배재대학교 시간표 웹앱" class="project-thumbnail large-image" loading="lazy" decoding="async" width="300" height="200">
                     </a>
                     <div class="project-content">
                         <h3>캠퍼스 헬퍼 - 배재대학교 시간표 웹앱 (SPA)</h3>
@@ -1133,7 +205,7 @@
 
                 <div class="project-item">
                     <a href="assets/축제가이드.png" class="project-thumbnail-link">
-                        <img src="assets/축제가이드.png" alt="세계 축제 가이드" class="project-thumbnail large-image" loading="lazy" decoding="async">
+                        <img src="assets/축제가이드.png" alt="세계 축제 가이드" class="project-thumbnail large-image" loading="lazy" decoding="async" width="300" height="200">
                     </a>
                     <div class="project-content">
                         <h3>세계 축제 가이드 (Web App)</h3>
@@ -1164,7 +236,7 @@
                 
                 <div class="project-item">
                     <a href="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&auto=format" class="project-thumbnail-link">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop&auto=format" alt="청년 고용 정책 포털" class="project-thumbnail" loading="lazy" decoding="async">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop&auto=format" alt="청년 고용 정책 포털" class="project-thumbnail" loading="lazy" decoding="async" width="300" height="200">
                     </a>
                     <div class="project-content">
                         <h3>청년 고용 정책 포털 (PRPGPRPG)</h3>
@@ -1196,7 +268,7 @@
 
                 <div class="project-item">
                     <a href="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&h=600&fit=crop&auto=format" class="project-thumbnail-link">
-                        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=300&h=200&fit=crop&auto=format" alt="여행 비용 계산기" class="project-thumbnail" loading="lazy" decoding="async">
+                        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=300&h=200&fit=crop&auto=format" alt="여행 비용 계산기" class="project-thumbnail" loading="lazy" decoding="async" width="300" height="200">
                     </a>
                     <div class="project-content">
                         <h3>관광 자원 계산기 (Web App)</h3>
@@ -1226,7 +298,7 @@
 
                 <div class="project-item">
                     <a href="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&auto=format&q=80" class="project-thumbnail-link">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop&auto=format&q=80" alt="의사결정 헬퍼" class="project-thumbnail" loading="lazy" decoding="async">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop&auto=format&q=80" alt="의사결정 헬퍼" class="project-thumbnail" loading="lazy" decoding="async" width="300" height="200">
                     </a>
                     <div class="project-content">
                         <h3>결정 도우미 (Decision Helper)</h3>
@@ -1257,7 +329,7 @@
 
                 <div class="project-item">
                     <a href="assets/도마시장로컬투어.png" class="project-thumbnail-link">
-                        <img src="assets/도마시장로컬투어.png" alt="도마시장 리빙랩" class="project-thumbnail large-image" loading="lazy" decoding="async">
+                        <img src="assets/도마시장로컬투어.png" alt="도마시장 리빙랩" class="project-thumbnail large-image" loading="lazy" decoding="async" width="300" height="200">
                     </a>
                     <div class="project-content">
                         <h3>도마에서 식탁까지 - 로컬 푸드 투어 (리빙랩 프로젝트)</h3>
@@ -1336,15 +408,15 @@
         </section>
     </main>
 
-    <div id="lightbox-overlay" class="lightbox-overlay">
-        <span class="lightbox-close">&times;</span>
+    <div id="lightbox-overlay" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="이미지 보기">
+        <button class="lightbox-close" aria-label="닫기" type="button">&times;</button>
         <img id="lightbox-image" class="lightbox-image" src="" alt="Project full-size image">
     </div>
 
     <!-- Awards Modal -->
     <div id="awards-modal" class="awards-modal" role="dialog" aria-modal="true" aria-labelledby="awards-modal-title">
         <div class="awards-modal-content">
-            <span class="awards-modal-close">&times;</span>
+            <button class="awards-modal-close" aria-label="닫기" type="button">&times;</button>
             <div id="awards-modal-body">
                 <!-- Content will be dynamically loaded here -->
             </div>
@@ -1354,7 +426,7 @@
     <!-- Case Study Modal -->
     <div id="case-study-modal" class="awards-modal" role="dialog" aria-modal="true" aria-labelledby="case-study-modal-title"> <!-- Reuse awards-modal styles -->
         <div class="awards-modal-content">
-            <span class="awards-modal-close">&times;</span>
+            <button class="awards-modal-close" aria-label="닫기" type="button">&times;</button>
             <div id="case-study-modal-body">
                 <!-- Case study content will be dynamically loaded here -->
             </div>
@@ -1429,8 +501,9 @@
 
         // --- Lightbox Functionality ---
     const lightboxOverlay = document.getElementById('lightbox-overlay');
-        const lightboxImage = document.getElementById('lightbox-image');
-        const lightboxClose = document.querySelector('.lightbox-close');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    let lastFocusedBeforeLightbox = null;
 
         document.querySelectorAll('.project-thumbnail-link').forEach(link => {
             link.addEventListener('click', e => {
@@ -1439,6 +512,8 @@
                 lightboxImage.setAttribute('src', imageUrl);
                 lightboxOverlay.classList.add('visible');
                 document.body.classList.add('no-scroll');
+                lastFocusedBeforeLightbox = document.activeElement;
+                lightboxClose.focus();
             });
         });
 
@@ -1449,6 +524,10 @@
             setTimeout(() => {
                 lightboxImage.setAttribute('src', '');
             }, 300);
+            if (lastFocusedBeforeLightbox) {
+                lastFocusedBeforeLightbox.focus();
+                lastFocusedBeforeLightbox = null;
+            }
         }
 
         lightboxClose.addEventListener('click', closeLightbox);
@@ -1464,11 +543,20 @@
                 closeLightbox();
             }
         });
+        // Focus trap for lightbox (close button only focusable)
+        lightboxOverlay.addEventListener('keydown', (e) => {
+            if (!lightboxOverlay.classList.contains('visible')) return;
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                lightboxClose.focus();
+            }
+        });
 
         // --- Awards Modal Functionality ---
     const awardsModal = document.getElementById('awards-modal');
     const awardsModalClose = document.querySelector('#awards-modal .awards-modal-close');
         const awardsModalBody = document.getElementById('awards-modal-body');
+        let lastFocusedBeforeAwards = null;
 
         const awardsData = {
             'disney-internship': {
@@ -1542,6 +630,8 @@
                 
                 awardsModal.style.display = 'block';
                 document.body.classList.add('no-scroll');
+                lastFocusedBeforeAwards = document.activeElement;
+                awardsModalClose.focus();
             };
 
             card.addEventListener('click', openAward);
@@ -1556,6 +646,10 @@
         function closeAwardsModal() {
             awardsModal.style.display = 'none';
             document.body.classList.remove('no-scroll');
+            if (lastFocusedBeforeAwards) {
+                lastFocusedBeforeAwards.focus();
+                lastFocusedBeforeAwards = null;
+            }
         }
 
         awardsModalClose.addEventListener('click', closeAwardsModal);
@@ -1570,12 +664,30 @@
                 closeAwardsModal();
             }
         });
+        // Focus trap within awards modal
+        awardsModal.addEventListener('keydown', (e) => {
+            if (awardsModal.style.display !== 'block') return;
+            if (e.key !== 'Tab') return;
+            const focusable = awardsModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            const focusables = Array.from(focusable).filter(el => !el.hasAttribute('disabled'));
+            if (focusables.length === 0) return;
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        });
 
         // --- Case Study Modal Functionality ---
     const caseStudyModal = document.getElementById('case-study-modal');
     const caseStudyModalClose = caseStudyModal.querySelector('.awards-modal-close'); // Use querySelector on the modal element
         const caseStudyModalBody = document.getElementById('case-study-modal-body');
         const caseStudyTrigger = document.getElementById('case-study-trigger');
+        let lastFocusedBeforeCase = null;
 
         const caseStudyData = {
             title: 'Case Study: 캠퍼스 헬퍼',
@@ -1621,11 +733,17 @@
             caseStudyModalBody.innerHTML = modalHtml;
             caseStudyModal.style.display = 'block';
             document.body.classList.add('no-scroll');
+            lastFocusedBeforeCase = document.activeElement;
+            caseStudyModalClose.focus();
         });
 
         function closeCaseStudyModal() {
             caseStudyModal.style.display = 'none';
             document.body.classList.remove('no-scroll');
+            if (lastFocusedBeforeCase) {
+                lastFocusedBeforeCase.focus();
+                lastFocusedBeforeCase = null;
+            }
         }
 
         caseStudyModalClose.addEventListener('click', closeCaseStudyModal);
@@ -1638,6 +756,23 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && caseStudyModal.style.display === 'block') {
                 closeCaseStudyModal();
+            }
+        });
+        // Focus trap within case study modal
+        caseStudyModal.addEventListener('keydown', (e) => {
+            if (caseStudyModal.style.display !== 'block') return;
+            if (e.key !== 'Tab') return;
+            const focusable = caseStudyModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            const focusables = Array.from(focusable).filter(el => !el.hasAttribute('disabled'));
+            if (focusables.length === 0) return;
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
             }
         });
     </script>
