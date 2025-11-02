@@ -322,15 +322,45 @@
             display: inline-block;
             font-weight: 500;
         }
+        .project-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
         .project-links a {
             text-decoration: none;
             font-weight: 600;
-            margin-right: 20px;
-            color: var(--text-color);
-            transition: color 0.3s ease;
+            padding: 10px 18px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
-        .project-links a i { margin-right: 6px; }
-        .project-links a:hover { color: var(--primary-color); }
+        .project-links a i { 
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+        .project-links a.btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        }
+        .project-links a.btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+        }
+        .project-links a.btn-secondary {
+            background: transparent;
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+        }
+        .project-links a.btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: rgba(37, 99, 235, 0.05);
+        }
         .footer {
             text-align: center;
             padding: 60px 0;
@@ -402,6 +432,14 @@
                 object-position: center;
             }
             .project-content h3 { font-size: 1.5em; }
+            .project-links {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .project-links a {
+                text-align: center;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -502,10 +540,10 @@
                             <span>#Web App</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://siwoo281.github.io/themepark-travel-guide" target="_blank">
+                            <a href="https://siwoo281.github.io/themepark-travel-guide" target="_blank" class="btn-primary">
                                 <i class="fas fa-rocket"></i> Live Site
                             </a>
-                            <a href="https://github.com/siwoo281/themepark-travel-guide" target="_blank">
+                            <a href="https://github.com/siwoo281/themepark-travel-guide" target="_blank" class="btn-secondary">
                                 <i class="fab fa-github"></i> GitHub
                             </a>
                         </div>
@@ -530,10 +568,10 @@
                             <span>#기획</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://siwoo281.github.io/festival-travel-guide" target="_blank">
+                            <a href="https://siwoo281.github.io/festival-travel-guide" target="_blank" class="btn-primary">
                                 <i class="fas fa-rocket"></i> Live Site
                             </a>
-                            <a href="https://github.com/siwoo281/festival-travel-guide" target="_blank">
+                            <a href="https://github.com/siwoo281/festival-travel-guide" target="_blank" class="btn-secondary">
                                 <i class="fab fa-github"></i> GitHub
                             </a>
                         </div>
@@ -557,10 +595,10 @@
                             <span>#Web App</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://siwoo281.github.io/prpgprpg" target="_blank">
+                            <a href="https://siwoo281.github.io/prpgprpg" target="_blank" class="btn-primary">
                                 <i class="fas fa-rocket"></i> Live Site
                             </a>
-                            <a href="https://github.com/siwoo281/prpgprpg" target="_blank">
+                            <a href="https://github.com/siwoo281/prpgprpg" target="_blank" class="btn-secondary">
                                 <i class="fab fa-github"></i> GitHub
                             </a>
                         </div>
@@ -583,10 +621,10 @@
                             <span>#Web App</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://siwoo281.github.io/tour-calc" target="_blank">
+                            <a href="https://siwoo281.github.io/tour-calc" target="_blank" class="btn-primary">
                                 <i class="fas fa-rocket"></i> Live Site
                             </a>
-                            <a href="https://github.com/siwoo281/tour-calc" target="_blank">
+                            <a href="https://github.com/siwoo281/tour-calc" target="_blank" class="btn-secondary">
                                 <i class="fab fa-github"></i> GitHub
                             </a>
                         </div>
@@ -609,10 +647,10 @@
                             <span>#Toy Project</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://siwoo281.github.io/decision_helper" target="_blank">
+                            <a href="https://siwoo281.github.io/decision_helper" target="_blank" class="btn-primary">
                                 <i class="fas fa-rocket"></i> Live Site
                             </a>
-                            <a href="https://github.com/siwoo281/decision_helper" target="_blank">
+                            <a href="https://github.com/siwoo281/decision_helper" target="_blank" class="btn-secondary">
                                 <i class="fab fa-github"></i> GitHub
                             </a>
                         </div>
@@ -635,11 +673,11 @@
                             <span>#데이터분석</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://www.notion.so/siwoo281/doma-market-living-lab" target="_blank">
-                                <i class="fas fa-file-alt"></i> 발표 자료 (Notion)
+                            <a href="https://www.notion.so/siwoo281/doma-market-living-lab" target="_blank" class="btn-primary">
+                                <i class="fas fa-file-alt"></i> 발표 자료
                             </a>
-                            <a href="https://github.com/siwoo281/doma-market-analysis" target="_blank">
-                                <i class="fab fa-github"></i> 분석 코드 (GitHub)
+                            <a href="https://github.com/siwoo281/doma-market-analysis" target="_blank" class="btn-secondary">
+                                <i class="fab fa-github"></i> 분석 코드
                             </a>
                         </div>
                     </div>
