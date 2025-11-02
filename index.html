@@ -44,7 +44,7 @@
                 <a href="#awards">Awards</a>
                 <a href="#contact">Contact</a>
             </nav>
-            <button class="hamburger" id="hamburger" aria-label="메뉴 열기" aria-controls="navLinks" aria-expanded="false">☰</button>
+            <button class="hamburger" id="hamburger" aria-label="메뉴 열기" aria-controls="navLinks" aria-expanded="false"><i class="fas fa-bars"></i></button>
         </div>
     </header>
 
@@ -450,8 +450,9 @@
         const navLinks = document.getElementById('navLinks');
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-            hamburger.setAttribute('aria-expanded', String(!expanded));
+            const isExpanded = navLinks.classList.contains('active');
+            hamburger.setAttribute('aria-expanded', String(isExpanded));
+            hamburger.setAttribute('aria-label', isExpanded ? '메뉴 닫기' : '메뉴 열기');
         });
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
