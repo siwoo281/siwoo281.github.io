@@ -1,64 +1,457 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[최시우] | Portfolio</title>
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* 1. 기본 & 폰트 설정 (미니멀리즘 라이트 테마) */
+        :root {
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --light-text-color: #6c757d;
+            --primary-color: #007bff;
+            --border-color: #dee2e6;
+            --card-bg-color: #ffffff;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* 2. 공통 레이아웃 (컨테이너) */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 3. 헤더 & 네비게이션 (변경 없음) */
+        .header {
+            padding: 25px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .nav-links a {
+            color: var(--light-text-color);
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            font-size: 1em;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--primary-color); }
+        .hamburger { display: none; }
+
+        /* 4. Hero 섹션 (텍스트 전용으로 복구) */
+        #hero {
+            padding: 100px 0;
+            text-align: left;
+        }
+
+        #hero h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            color: var(--text-color);
+        }
+
+        #hero .subtitle {
+            font-size: 1.5em;
+            color: var(--light-text-color);
+            margin: 0;
+            max-width: 700px;
+            font-weight: 400;
+        }
+        
+        #hero .subtitle strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        
+        /* 5. 섹션 공통 스타일 (변경 없음) */
+        .section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .section:last-of-type { border-bottom: none; }
+        .section-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+        }
+
+        /* 6. About 섹션 (Skills 통합 + 사진) */
+        
+        /* [수정됨] About Me Flexbox 레이아웃 */
+        .about-container {
+            display: flex;
+            align-items: flex-start; /* 텍스트 상단 정렬 */
+            gap: 40px; /* 이미지와 텍스트 간격 */
+        }
+        
+        /* [수정됨] About Me 프로필 이미지 스타일 */
+        .about-profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid var(--card-bg-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+        
+        /* [수정됨] About Me 텍스트 컨텐츠 */
+        .about-content {
+            flex-grow: 1;
+        }
+
+        #about p {
+            font-size: 1.15em;
+            color: var(--text-color);
+            margin-top: 0; /* flex 자식이 된 p태그의 상단 마진 제거 */
+            margin-bottom: 25px;
+            max-width: 800px;
+        }
+        #about .skills-list {
+            font-size: 1.05em;
+            color: var(--light-text-color);
+            line-height: 2;
+        }
+        #about .skills-list strong {
+            color: var(--text-color);
+            font-weight: 600;
+            margin-right: 10px;
+        }
 
 
+        /* 7. 프로젝트 섹션 (변경 없음) */
+        .project-item {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 60px;
+            background-color: var(--card-bg-color);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: box-shadow 0.3s ease;
+        }
+        .project-item:hover {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        .project-item:last-child { margin-bottom: 0; }
+        
+        .project-thumbnail {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .project-content { flex-grow: 1; }
+        .project-content h3 {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+        .project-content p {
+            font-size: 1.05em;
+            color: var(--light-text-color);
+            margin-bottom: 20px;
+        }
+        .project-tags { margin-bottom: 20px; }
+        .project-tags span {
+            background-color: #e9ecef;
+            color: var(--light-text-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            display: inline-block;
+            font-weight: 500;
+        }
+        .project-links a {
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 20px;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+        .project-links a i { margin-right: 6px; }
+        .project-links a:hover { color: var(--primary-color); }
 
-<!-- One -->
-    <section id="one">
+        /* 8. Footer (변경 없음) */
+        .footer {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--light-text-color);
+            font-size: 0.95em;
+        }
+        .footer .social-links a {
+            color: var(--light-text-color);
+            font-size: 1.5em;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        .footer .social-links a:hover { color: var(--primary-color); }
+        .footer p { margin-top: 25px; }
+
+        /* 9. 반응형 디자인 */
+        @media (max-width: 768px) {
+            .header .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 76px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-color);
+                border-bottom: 1px solid var(--border-color);
+                padding: 10px 0;
+            }
+            .header .nav-links.active { display: flex; }
+            .nav-links a { margin: 10px 0; text-align: center; padding: 10px; }
+            .hamburger {
+                display: block;
+                font-size: 1.6em;
+                cursor: pointer;
+            }
+            
+            /* [수정됨] Hero 섹션 반응형 (텍스트만) */
+            #hero {
+                padding: 60px 0;
+                text-align: center; /* 모바일에선 중앙 정렬이 나을 수 있음 */
+            }
+            #hero h1 { font-size: 2.8em; }
+            
+            /* [수정됨] About Me 섹션 반응형 */
+            .about-container {
+                flex-direction: column; /* 세로로 쌓기 */
+                align-items: center; /* 이미지 중앙 정렬 */
+            }
+            .about-profile-img {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 30px; /* 텍스트와의 간격 */
+            }
+            .about-content {
+                text-align: center; /* 텍스트도 중앙 정렬 (선택) */
+            }
+            
+            /* [수정됨] 프로젝트 섹션 반응형 (변경 없음) */
+            .project-item {
+                flex-direction: column; 
+                gap: 20px;
+                padding: 20px;
+            }
+            .project-thumbnail {
+                width: 100%;
+                height: 220px;
+            }
+            .project-content h3 { font-size: 1.5em; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header" id="header">
         <div class="container">
-            <header class="major">
-                <h2>Read Only</h2>
-                <p>Just an incredibly simple responsive site<br />
-                template freebie by <a href="http://html5up.net">HTML5 UP</a>.</p>
-            </header>
-            <p>Faucibus sed lobortis aliquam lorem blandit. Lorem eu nunc metus col. Commodo id in arcu ante lorem ipsum sed accumsan erat praesent faucibus commodo ac mi lacus. Adipiscing mi ac commodo. Vis aliquet tortor ultricies non ante erat nunc integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum.</p>
+            <a href="#" class="logo">[사용자 이름]</a>
+            
+            <nav class="nav-links" id="navLinks">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="hamburger" id="hamburger">☰</div>
         </div>
-    </section>
+    </header>
 
-<!-- Two -->
-    <section id="two">
-        <div class="container">
-            <h3>Things I Can Do</h3>
-            <p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum integer lorem ipsum dolor sit amet.</p>
-            <ul class="feature-icons">
-                <li class="fa-code">Write all the code</li>
-                <li class="fa-cubes">Stack small boxes</li>
-                <li class="fa-book">Read books and stuff</li>
-                <li class="fa-coffee">Drink much coffee</li>
-                <li class="fa-bolt">Lightning bolt</li>
-                <li class="fa-users">Shadow clone technique</li>
-            </ul>
-        </div>
-    </section>
+    <main>
+        <section id="hero" class="container">
+            <h1>기획하는 개발자 <br>[최시우]입니다.</h1>
+            <p class="subtitle">
+                <strong>관광경영학</strong> 전공 지식을 바탕으로 사회 문제를 발견하고<br>
+                <strong>웹 기술과 데이터</strong>를 활용해 실질적인 해결책을 만듭니다.
+            </p>
+        </section>
 
-<!-- Three -->
-    <section id="three">
-        <div class="container">
-            <h3>A Few Accomplishments</h3>
-            <p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum integer. Integer eu ante ornare amet commetus.</p>
-            <div class="features">
-                <article>
-                    <a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
-                    <div class="inner">
-                        <h4>Possibly broke spacetime</h4>
-                        <p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                
+                <div class="about-container">
+                    <img src="https://via.placeholder.com/200x200.png?text=Profile" 
+                         alt="[사용자 이름] 프로필 사진" 
+                         class="about-profile-img">
+                    
+                    <div class="about-content">
+                        <p>
+                            저는 지역 사회 문제에 대한 깊은 관심에서 출발하여, 아이디어를 현실로 구현할 수 있는 기술의 힘에 매료되었습니다.
+                            '도마시장 리빙랩' 프로젝트를 통해 현장의 목소리를 듣고 기획의 중요성을 배웠으며,
+                            '청년 고용 정책' 공모전을 준비하며 분산된 데이터를 통합하는 웹 기술의 가치를 깨달았습니다.
+                        </p>
+                        <p>
+                            단순히 코드를 작성하는 것을 넘어, 문제의 본질을 파악하고 사용자에게 가장 필요한 솔루션을
+                            제공하는 과정 자체를 즐깁니다.
+                        </p>
+                        <div class="skills-list">
+                            <strong>KEY SKILLS:</strong>
+                            <span>Python</span> ·
+                            <span>HTML/CSS</span> ·
+                            <span>JavaScript</span> ·
+                            <span>React (Learning)</span> ·
+                            <span>Data Analysis</span> ·
+                            <span>Project Planning</span> ·
+                            <span>Notion</span>
+                        </div>
                     </div>
-                </article>
-                <article>
-                    <a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
-                    <div class="inner">
-                        <h4>Terraformed a small moon</h4>
-                        <p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
-                    </div>
-                </article>
-                <article>
-                    <a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
-                    <div class="inner">
-                        <h4>Snapped dark matter in the wild</h4>
-                        <p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
-                    </div>
-                </article>
+                </div>
             </div>
+        </section>
+
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title">Projects</h2>
+
+                <div class="project-item">
+                    <img src="https://via.placeholder.com/300x200.png?text=Youth+Portal" alt="청년 고용 정책 포털" class="project-thumbnail">
+                    <div class="project-content">
+                        <h3>청년 고용 정책 포털 (기획/웹앱)</h3>
+                        <p>
+                            분산된 청년 고용 정책과 '국민내일배움카드' 정보를 사용자 친화적인 웹 포털로 통합하여 제공하는 아이디어를 기획하고,
+                            핵심 기능을 담은 프로토타입을 제작했습니다.
+                        </p>
+                        <div class="project-tags">
+                            <span>#기획</span>
+                            <span>#UX/UI</span>
+                            <span>#HTML</span>
+                            <span>#CSS</span>
+                            <span>#JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://[사용자이름].github.io/[project-repo-1]" target="_blank">
+                                <i class="fas fa-rocket"></i> Live Site
+                            </a>
+                            <a href="https://github.com/[사용자이름]/[project-repo-1]" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <img src="https://via.placeholder.com/300x200.png?text=Doma+Market" alt="도마시장 리빙랩" class="project-thumbnail">
+                    <div class="project-content">
+                        <h3>도마시장 로컬 투어 (리빙랩 프로젝트)</h3>
+                        <p>
+                            대전 원도심 도마시장 활성화를 위해 외국인 유학생들의 참여를 유도하는
+                            '로컬 푸드 투어' 프로그램을 기획하고, 실제 운영까지 담당했습니다.
+                        </S>
+                        <div class="project-tags">
+                            <span>#기획</span>
+                            <span>#리빙랩</span>
+                            <span>#지역문제해결</span>
+                            <span>#데이터분석</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" target="_blank">
+                                <i class="fas fa-file-alt"></i> 발표 자료 (Notion)
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class="fab fa-github"></i> 분석 코드 (GitHub)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-item">
+                    <img src="https://via.placeholder.com/300x200.png?text=Portfolio" alt="개인 포트폴리오" class="project-thumbnail">
+                    <div class="project-content">
+                        <h3>개인 포트폴리오 사이트</h3>
+                        <p>
+                            지금 보고 계신 이 사이트입니다. 저의 스토리를 효과적으로 전달하기 위해
+                            기획부터 디자인, 그리고 순수 HTML/CSS/JS로 직접 구현했습니다.
+                        </S>
+                        <div class="project-tags">
+                            <span>#HTML</span>
+                            <span>#CSS</span>
+                            <span>#JavaScript</span>
+                            <span>#반응형</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://[사용자이름].github.io" target="_blank">
+                                <i class="fas fa-rocket"></i> Live Site
+                            </a>
+                            <a href="https://github.com/[사용자이름]/[사용자이름].github.io" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/[사용자이름]" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:[이메일주소]" target="_blank" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="#" target="_blank" title="Notion Blog"><i class="fas fa-blog"></i></a>
+            </div>
+            <p>&copy; 2025 [사용자 이름]. All rights reserved.</p>
         </div>
-    </section>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
