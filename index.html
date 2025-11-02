@@ -141,8 +141,23 @@
         .section {
             padding: 80px 0;
             border-bottom: 1px solid var(--border-color);
+            position: relative;
         }
         .section:last-of-type { border-bottom: none; }
+        .section:nth-child(even) {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.03) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
         .section-title {
             font-size: 1.2em;
             font-weight: 600;
@@ -150,20 +165,51 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
         }
         .about-container {
             display: flex;
             align-items: flex-start;
             gap: 40px;
+            position: relative;
+        }
+        .about-container::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: -1;
         }
         .about-profile-img {
             width: 200px;
             height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            border: 6px solid var(--card-bg-color);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 4px solid transparent;
+            background: var(--gradient-primary);
+            padding: 4px;
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.2);
             flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+        .about-profile-img:hover {
+            transform: scale(1.05);
         }
         .about-content { flex-grow: 1; }
         #about p {
@@ -177,11 +223,33 @@
             font-size: 1.05em;
             color: var(--light-text-color);
             line-height: 2;
+            margin-top: 30px;
         }
         #about .skills-list strong {
             color: var(--text-color);
             font-weight: 600;
             margin-right: 10px;
+            display: block;
+            margin-bottom: 15px;
+        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .skill-tag {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: transform 0.2s ease;
+            cursor: default;
+        }
+        .skill-tag:hover {
+            transform: translateY(-2px);
         }
         .project-item {
             display: flex;
@@ -312,6 +380,9 @@
                 margin-bottom: 30px;
             }
             .about-content { text-align: center; }
+            .skill-tags {
+                justify-content: center;
+            }
             .project-item {
                 flex-direction: column; 
                 gap: 20px;
@@ -384,13 +455,15 @@
                         </p>
                         <div class="skills-list">
                             <strong>KEY SKILLS:</strong>
-                            <span>Python</span> ·
-                            <span>HTML/CSS</span> ·
-                            <span>JavaScript</span> ·
-                            <span>Data Analysis</span> ·
-                            <span>Project Planning</span> ·
-                            <span>GitHub</span> ·
-                            <span>Notion</span>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">HTML/CSS</span>
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">Data Analysis</span>
+                                <span class="skill-tag">Project Planning</span>
+                                <span class="skill-tag">GitHub</span>
+                                <span class="skill-tag">Notion</span>
+                            </div>
                         </div>
                     </div>
                 </div>
