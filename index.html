@@ -1068,6 +1068,9 @@
                             <a href="https://github.com/siwoo281/ClassLink" target="_blank" class="btn-secondary">
                                 <i class="fab fa-github"></i> GitHub
                             </a>
+                            <a href="#" id="case-study-trigger" class="btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);">
+                                <i class="fas fa-search-plus"></i> 심층 분석 보기
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1292,6 +1295,16 @@
         </div>
     </div>
 
+    <!-- Case Study Modal -->
+    <div id="case-study-modal" class="awards-modal"> <!-- Reuse awards-modal styles -->
+        <div class="awards-modal-content">
+            <span class="awards-modal-close">&times;</span>
+            <div id="case-study-modal-body">
+                <!-- Case study content will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
     <footer id="contact" class="footer">
         <div class="container">
             <div class="social-links">
@@ -1470,6 +1483,70 @@
         awardsModal.addEventListener('click', e => {
             if (e.target === awardsModal) {
                 closeAwardsModal();
+            }
+        });
+
+        // --- Case Study Modal Functionality ---
+        const caseStudyModal = document.getElementById('case-study-modal');
+        const caseStudyModalClose = caseStudyModal.querySelector('.awards-modal-close'); // Use querySelector on the modal element
+        const caseStudyModalBody = document.getElementById('case-study-modal-body');
+        const caseStudyTrigger = document.getElementById('case-study-trigger');
+
+        const caseStudyData = {
+            title: 'Case Study: 캠퍼스 헬퍼',
+            sections: [
+                {
+                    title: '1. 문제 정의 (The Problem)',
+                    content: '모든 것은 하나의 질문에서 시작되었습니다. "왜 학생들은 빈 강의실을 찾아 헤매야 할까?", "왜 학교 시간표 정보는 찾기 어려운 PDF 파일로만 제공될까?" 이처럼 비효율적인 정보 접근성 문제를 해결하고 싶었습니다.'
+                },
+                {
+                    title: '2. 목표 설정 (The Goal)',
+                    content: '이 문제를 해결하기 위해 다음과 같은 구체적인 목표를 세웠습니다: <br>1. 3번의 클릭만으로 현재 비어있는 모든 강의실 목록을 보여주자. <br>2. 가장 혼잡한 시간대와 건물을 시각적으로 파악할 수 있게 하자. <br>3. 443명 교수님의 시간표를 쉽게 검색할 수 있게 하자.'
+                },
+                {
+                    title: '3. 나의 역할 (My Role)',
+                    content: '이 프로젝트에서 저는 기획부터 개발까지 전 과정을 주도했습니다. <br>• **기획:** 핵심 기능 정의, UI/UX 설계 <br>• **데이터 처리:** Python을 이용한 4,238개 강의 데이터 파싱 및 정제 <br>• **프론트엔드 개발:** Vanilla JavaScript 기반 SPA(Single Page Application) 구현'
+                },
+                {
+                    title: '4. 핵심 과정 및 의사결정 (Process & Key Decisions)',
+                    content: '가장 큰 도전은 4,238개의 강의 데이터가 담긴 PDF 파일을 웹에서 사용할 수 있는 형태로 가공하는 것이었습니다. Python의 PyPDF2 라이브러리를 사용하여 텍스트를 추출하고, 정규표현식으로 데이터를 정제하여 JSON 파일로 변환했습니다. 또한, 캠퍼스 혼잡도를 효과적으로 보여주기 위해 여러 라이브러리를 검토한 끝에, 가장 가볍고 직관적인 Chart.js를 선택하여 데이터를 시각화했습니다.'
+                },
+                {
+                    title: '5. 최종 결과물 (The Outcome)',
+                    content: '그 결과, 실시간 빈 강의실 찾기, 캠퍼스 혼잡도 시각화, 교수님 시간표 조회, 점심 메뉴 룰렛 등 학생들의 실제 불편함을 해결하는 다양한 기능을 갖춘 웹앱을 완성할 수 있었습니다.'
+                },
+                {
+                    title: '6. 회고 및 교훈 (Retrospective & Lessons Learned)',
+                    content: '이 프로젝트를 통해 사용자의 작은 불편함 속에 큰 기회가 있다는 것을 깨달았습니다. 만약 다시 이 프로젝트를 한다면, 초기 기획 단계에서 실제 학생들을 대상으로 사용성 테스트를 진행하여 피드백을 더 적극적으로 반영하고 싶습니다. 기술은 목적이 아니라, 문제를 해결하는 가장 효과적인 도구여야 함을 배웠습니다.'
+                }
+            ]
+        };
+
+        caseStudyTrigger.addEventListener('click', e => {
+            e.preventDefault();
+            
+            let modalHtml = `<h2>${caseStudyData.title}</h2>`;
+            caseStudyData.sections.forEach(section => {
+                modalHtml += `
+                    <h3>${section.title}</h3>
+                    <p>${section.content}</p>
+                `;
+            });
+            
+            caseStudyModalBody.innerHTML = modalHtml;
+            caseStudyModal.style.display = 'block';
+            document.body.classList.add('no-scroll');
+        });
+
+        function closeCaseStudyModal() {
+            caseStudyModal.style.display = 'none';
+            document.body.classList.remove('no-scroll');
+        }
+
+        caseStudyModalClose.addEventListener('click', closeCaseStudyModal);
+        caseStudyModal.addEventListener('click', e => {
+            if (e.target === caseStudyModal) {
+                closeCaseStudyModal();
             }
         });
     </script>
