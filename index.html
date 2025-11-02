@@ -467,42 +467,59 @@
         }
         .project-links {
             display: flex;
-            gap: 12px;
+            gap: 16px;
             flex-wrap: wrap;
+            margin-top: 25px;
         }
         .project-links a {
             text-decoration: none;
-            font-weight: 600;
-            padding: 10px 18px;
-            border-radius: 8px;
+            font-weight: 700;
+            padding: 14px 24px;
+            border-radius: 12px;
             display: inline-flex;
             align-items: center;
-            font-size: 0.9em;
-            transition: all 0.3s ease;
+            font-size: 0.95em;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.320, 1.275);
             border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.3px;
         }
         .project-links a i { 
-            margin-right: 8px;
-            font-size: 1.1em;
+            margin-right: 10px;
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
         }
         .project-links a.btn-primary {
-            background: var(--gradient-primary);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            border: 2px solid transparent;
         }
         .project-links a.btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+        .project-links a.btn-primary:hover i {
+            transform: translateX(2px);
         }
         .project-links a.btn-secondary {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.9);
             color: var(--text-color);
-            border: 2px solid var(--border-color);
+            border: 2px solid #e2e8f0;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         .project-links a.btn-secondary:hover {
             border-color: var(--primary-color);
             color: var(--primary-color);
-            background: rgba(37, 99, 235, 0.05);
+            background: rgba(37, 99, 235, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+        }
+        .project-links a.btn-secondary:hover i {
+            transform: rotate(360deg);
         }
         .footer {
             text-align: center;
@@ -611,11 +628,14 @@
             .project-content h3 { font-size: 1.5em; }
             .project-links {
                 flex-direction: column;
-                gap: 8px;
+                gap: 12px;
+                margin-top: 20px;
             }
             .project-links a {
                 text-align: center;
                 justify-content: center;
+                padding: 16px 20px;
+                font-size: 1em;
             }
         }
     </style>
@@ -718,7 +738,7 @@
                         </div>
                         <div class="project-links">
                             <a href="https://siwoo281.github.io/themepark-travel-guide" target="_blank" class="btn-primary">
-                                <i class="fas fa-rocket"></i> Live Site
+                                <i class="fas fa-rocket"></i> 데모 사이트 보기
                             </a>
                             <a href="https://github.com/siwoo281/themepark-travel-guide" target="_blank" class="btn-secondary">
                                 <i class="fab fa-github"></i> GitHub
@@ -748,7 +768,7 @@
                         </div>
                         <div class="project-links">
                             <a href="https://siwoo281.github.io/ClassLink" target="_blank" class="btn-primary">
-                                <i class="fas fa-rocket"></i> Live Site
+                                <i class="fas fa-rocket"></i> 데모 사이트 보기
                             </a>
                             <a href="https://github.com/siwoo281/ClassLink" target="_blank" class="btn-secondary">
                                 <i class="fab fa-github"></i> GitHub
@@ -776,7 +796,7 @@
                         </div>
                         <div class="project-links">
                             <a href="https://siwoo281.github.io/festival-travel-guide" target="_blank" class="btn-primary">
-                                <i class="fas fa-rocket"></i> Live Site
+                                <i class="fas fa-rocket"></i> 데모 사이트 보기
                             </a>
                             <a href="https://github.com/siwoo281/festival-travel-guide" target="_blank" class="btn-secondary">
                                 <i class="fab fa-github"></i> GitHub
@@ -803,7 +823,7 @@
                         </div>
                         <div class="project-links">
                             <a href="https://siwoo281.github.io/prpgprpg" target="_blank" class="btn-primary">
-                                <i class="fas fa-rocket"></i> Live Site
+                                <i class="fas fa-rocket"></i> 데모 사이트 보기
                             </a>
                             <a href="https://github.com/siwoo281/prpgprpg" target="_blank" class="btn-secondary">
                                 <i class="fab fa-github"></i> GitHub
@@ -829,7 +849,7 @@
                         </div>
                         <div class="project-links">
                             <a href="https://siwoo281.github.io/tour-calc" target="_blank" class="btn-primary">
-                                <i class="fas fa-rocket"></i> Live Site
+                                <i class="fas fa-rocket"></i> 데모 사이트 보기
                             </a>
                             <a href="https://github.com/siwoo281/tour-calc" target="_blank" class="btn-secondary">
                                 <i class="fab fa-github"></i> GitHub
@@ -855,7 +875,7 @@
                         </div>
                         <div class="project-links">
                             <a href="https://siwoo281.github.io/decision_helper" target="_blank" class="btn-primary">
-                                <i class="fas fa-rocket"></i> Live Site
+                                <i class="fas fa-rocket"></i> 데모 사이트 보기
                             </a>
                             <a href="https://github.com/siwoo281/decision_helper" target="_blank" class="btn-secondary">
                                 <i class="fab fa-github"></i> GitHub
