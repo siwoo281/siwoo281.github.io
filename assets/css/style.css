@@ -41,17 +41,14 @@ body::before {
     66% { transform: translate(-10px, 10px) rotate(-1deg); }
 }
 .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
-.header {
-    padding: 25px 0;
-    border-bottom: 1px solid var(--border-color);
-    background: rgba(248, 249, 250, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    transition: all 0.3s ease;
-}
+    .header {
+        padding: 15px 0;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .logo {
+        font-size: 1.3em;
+    }
 .header .container { display: flex; justify-content: space-between; align-items: center; }
 .logo { font-size: 1.4em; font-weight: 700; color: var(--text-color); text-decoration: none; }
 .nav-links a { color: var(--light-text-color); text-decoration: none; margin-left: 25px; font-weight: 500; font-size: 1em; transition: color 0.3s ease; }
@@ -201,8 +198,8 @@ body::before {
         text-align: center;
     }
     #hero h1 {
-        font-size: 2.2em; /* 가독성을 위해 폰트 크기 조정 */
-        line-height: 1.4;
+        font-size: 1.8em;
+        line-height: 1.5;
     }
     #hero .subtitle {
         font-size: 1.2em;
@@ -222,15 +219,16 @@ body::before {
         min-height: 200px;
     }
     .about-container::before {
-        width: 200px;
-        height: 200px;
-        top: 10px;
-        right: 10px;
-        opacity: 0.2;
+        width: 250px;
+        height: 250px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.08;
     }
     .about-content {
-        padding-right: 220px;
-        text-align: left;
+        padding-right: 0;
+        text-align: center;
     }
     .skill-tags {
         justify-content: center;
