@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cast-Link - 놀이공원 캐스트 전용 앱</title>
+    <meta name="description" content="놀이공원 캐스트들을 위한 특별한 앱. 칭찬 메일, 샤라웃, 미아 알림, 근무 관리까지 한번에!">
+    <meta property="og:title" content="Cast-Link - 놀이공원 캐스트 전용 앱">
+    <meta property="og:description" content="마법 같은 하루를 만드는 캐스트들을 위한 앱입니다.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#2563EB">
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* 2. 모형(Mockup)을 위한 V3 디자인 시스템 */
+        :root {
+            --primary-color: #2563EB;
+            --primary-light: #eff6ff;
+            --accent-color: #FFC107; /* 칭찬/별점 (골드) */
+            --accent-light: #fffbeb;
+            --danger-color: #dc3545;
+            --app-bg: #f7f8fc;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+            --light-text-color: #6b7280;
+            --border-color: #e5e7eb;
+        }
+        html { box-sizing: border-box; font-size: 16px; }
+        *, *:before, *:after { box-sizing: inherit; }
+        body {
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .mobile-mockup {
+            width: 390px;
+            height: 844px;
+            background: var(--app-bg);
+            border: 12px solid #111;
+            border-radius: 44px;
+            box-shadow: 0 20px 60px -10px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+        .mobile-mockup::before {
+            content: ''; position: absolute; top: 0; left: 50%;
+            transform: translateX(-50%); width: 140px; height: 28px;
+            background: #111; border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px; z-index: 10;
+        }
+        .app-header {
+            padding: 1rem 1.25rem; padding-top: 3rem;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 5;
+        }
+        .app-header h1 {
+            font-size: 1.75rem; font-weight: 800;
+            margin: 0; color: var(--text-color);
+        }
+        .app-content {
+            flex-grow: 1; overflow-y: auto; padding: 1.25rem;
+        }
+        .page {
+            display: none; animation: fadeIn 0.3s ease-in-out;
+        }
+        .page.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card {
+            background: var(--card-bg); border-radius: 1rem;
+            padding: 1.5rem; margin-bottom: 1.25rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+            border: 1px solid var(--border-color);
+        }
+        .card-header {
+            display: flex; align-items: center; font-size: 1.125rem;
+            font-weight: 700; margin-bottom: 1rem; color: var(--text-color);
+            line-height: 1.4;
+        }
+        .card-header i {
+            margin-right: 0.75rem; font-size: 1.2em;
+            color: var(--primary-color); width: 24px; text-align: center;
+        }
+        .card p {
+            margin-top: 0; margin-bottom: 0.75rem; color: var(--light-text-color);
+            line-height: 1.7; letter-spacing: -0.01em;
+        }
+        .card-link {
+            display: block; font-size: 0.95rem; font-weight: 600;
+            color: var(--primary-color); text-decoration: none;
+            margin-top: 1rem;
+        }
+        .card-link:hover { text-decoration: underline; }
+        .btn {
+            display: block; width: 100%; padding: 1rem 1.25rem;
+            font-size: 1rem; font-weight: 600; color: #fff;
+            background: var(--primary-color); border: none;
+            border-radius: 0.75rem; text-align: center;
+            text-decoration: none; box-sizing: border-box;
+            margin-bottom: 0.75rem; cursor: pointer; transition: all 0.2s ease;
+            line-height: 1.5; letter-spacing: -0.01em;
+        }
+        .btn:hover { opacity: 0.85; transform: translateY(-2px); }
+        .btn-secondary {
+            background: var(--primary-light); color: var(--primary-color);
+        }
+        .welcome-header {
+            font-size: 1.35rem; font-weight: 700; margin-bottom: 0.5rem;
+            line-height: 1.5; letter-spacing: -0.02em;
+        }
+        .welcome-sub {
+            font-size: 0.95rem; color: var(--light-text-color);
+            margin-bottom: 1.5rem; line-height: 1.6;
+        }
+        .alert-card { 
+            border-left: 5px solid var(--danger-color);
+            background: linear-gradient(90deg, #fef2f2 0%, #ffffff 100%);
+        }
+        .alert-card .card-header i { color: var(--danger-color); }
+
+        /* ------------------------------------- */
+        /* [V3] 칭찬 강조 스타일 */
+        /* ------------------------------------- */
+
+        /* 홈: 칭찬 카드 (가장 중요) */
+        .praise-card {
+            background: var(--accent-light);
+            border: 1px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+        .praise-card .card-header i {
+            color: var(--accent-color);
+        }
+        /* 카드 우측 상단 반짝임 아이콘 */
+        .praise-card::after {
+            content: '\f005'; /* 별 아이콘 */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            font-size: 3rem;
+            color: var(--accent-color);
+            opacity: 0.15;
+            transform: rotate(15deg);
+        }
+        .praise-card .highlight {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-color);
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+        }
+        .praise-card .highlight strong {
+            color: #D97706; /* 짙은 노란색 */
+            font-size: 1.1em;
+        }
+
+        /* 성장(Growth) 탭: 스타 트래커 */
+        .star-tracker {
+            text-align: center;
+            background: linear-gradient(135deg, #fffbeb 0%, #fff 100%);
+            border: 1px solid var(--accent-color);
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        .star-tracker .star-level {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        .star-tracker .stars {
+            font-size: 2.25rem;
+            color: var(--accent-color);
+            margin-bottom: 1.25rem;
+            letter-spacing: 0.25rem;
+        }
+        /* 프로그레스 바 */
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }
+        .progress-bar-inner {
+            width: 60%; /* 칭찬 5개 중 3개 달성 (예시) */
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 10px;
+        }
+        .star-tracker .star-progress {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--light-text-color);
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+        }
+        .star-tracker .star-progress strong {
+            color: var(--text-color);
+        }
+
+        /* 성장(Growth) 탭: 칭찬 로그 (메일함 디자인) */
+        .praise-log .card-header i {
+            color: var(--primary-color);
+        }
+        .praise-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s ease;
+        }
+        .praise-item:last-child { border-bottom: none; }
+        .praise-item:hover { background: #f9fafb; }
+        .praise-item .icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .praise-item .icon.customer {
+            background: var(--accent-light);
+            color: var(--accent-color);
+        }
+        .praise-item .icon.colleague {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+        .praise-item .content {
+            flex-grow: 1;
+        }
+        .praise-item .content .header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.1rem;
+        }
+        .praise-item .content .header .name {
+            color: var(--text-color);
+        }
+        .praise-item .content .header .date {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--light-text-color);
+        }
+        .praise-item .content .message {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--light-text-color);
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            /* 한 줄만 보이고 말줄임표 */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* ------------------------------------- */
+
+        /* 스케줄 리스트 */
+        .schedule-list { list-style: none; padding: 0; margin: 0; }
+        .schedule-item {
+            display: flex; align-items: flex-start; padding: 1rem 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            gap: 1rem;
+        }
+        .schedule-item:last-child { border-bottom: none; }
+        .schedule-item .time {
+            font-weight: 700; min-width: 6.5rem; color: var(--primary-color);
+            font-size: 0.95rem; line-height: 1.6;
+        }
+        .schedule-item .task { 
+            font-weight: 500; flex-grow: 1; line-height: 1.7;
+            letter-spacing: -0.01em;
+        }
+        .schedule-item .location { 
+            font-size: 0.9rem; color: var(--light-text-color);
+            display: inline-block; margin-left: 0.25rem;
+        }
+        .schedule-item .break { font-weight: 600; color: #10B981; }
+
+        /* 매뉴얼 검색바 */
+        .search-bar {
+            width: 100%; padding: 1rem 1.25rem; font-size: 1rem;
+            border: 1px solid var(--border-color); border-radius: 0.75rem;
+            margin-bottom: 1.25rem; box-sizing: border-box; background: var(--card-bg);
+            line-height: 1.5;
+        }
+        .search-bar::placeholder { color: #9ca3af; }
+        .category-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+        }
+        .category-item {
+            background: var(--primary-light); border-radius: 0.75rem;
+            padding: 1.5rem 1rem; text-align: center;
+            font-weight: 600; color: var(--primary-color);
+            cursor: pointer; transition: all 0.2s ease;
+            line-height: 1.4;
+        }
+        .category-item:hover { background: var(--primary-color); color: var(--card-bg); }
+        .category-item i {
+            display: block; font-size: 1.5rem; margin-bottom: 0.5rem;
+        }
+
+        /* 하단 탭 내비게이션 */
+        .app-nav {
+            display: flex; background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+            padding-bottom: 1.5rem; padding-top: 0.5rem;
+            position: relative; z-index: 5;
+        }
+        .app-nav a {
+            flex: 1; padding: 0.5rem 0; text-align: center;
+            color: var(--light-text-color); text-decoration: none;
+            display: flex; flex-direction: column; align-items: center;
+            gap: 4px; font-size: 0.75rem; font-weight: 600;
+            transition: color 0.2s ease; line-height: 1.3;
+        }
+        /* [V3] 칭찬 강조 아이콘 */
+        .app-nav a i {
+            font-size: 1.375rem; width: 28px;
+        }
+        .app-nav a.active { color: var(--primary-color); }
+        .app-nav::after {
+            content: ''; position: absolute; bottom: 0.5rem; left: 50%;
+            transform: translateX(-50%); width: 134px; height: 5px;
+            background: #444; border-radius: 5px;
+        }
+        /* 모달 및 알림 배너 스타일 */
+        .modal-backdrop {
+            position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.45); z-index: 50; padding: 1rem;
+        }
+        .modal-backdrop.active { display: flex; }
+        .modal {
+            width: 100%; max-width: 520px; background: var(--card-bg); border-radius: 12px;
+            padding: 1.5rem 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .modal .modal-header { 
+            font-weight: 800; margin-bottom: 1rem; font-size: 1.25rem;
+            line-height: 1.4;
+        }
+        .modal .modal-actions { display:flex; gap:0.5rem; margin-top: 1.25rem; }
+        .modal input, .modal textarea, .modal select {
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-family: inherit;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .modal label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-color);
+            margin-bottom: 0.25rem;
+        }
+        .modal input:focus, .modal textarea:focus, .modal select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        .in-app-banner {
+            position: absolute; left: 1.25rem; right: 1.25rem; top: 4.6rem;
+            background: linear-gradient(90deg,#FDE68A,#FFEDD5); border:1px solid #F59E0B;
+            padding: 1rem 1.25rem; border-radius: 0.75rem; display: none; z-index: 40;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .in-app-banner.active { display: block; }
+        .in-app-banner .close-btn { 
+            float: right; cursor: pointer; font-weight: 700; 
+            margin-left: 0.75rem; font-size: 1.25rem; line-height: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-mockup">
+
+        <header class="app-header">
+            <h1 id="page-title">🏰 마법의 홈</h1>
+        </header>
+
+        <main class="app-content">
+
+            <section id="page-home" class="page active">
+                <h2 class="welcome-header">✨ 최시우 님,<br>오늘도 마법을 만드세요!</h2>
+                <p class="welcome-sub">놀이공원의 하루하루가 특별한 이야기가 되길 🎠✨</p>
+                
+                <div class="card praise-card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-gift"></i>
+                        <span>💝 따뜻한 마음이 도착했어요!</span>
+                    </div>
+                    <p class="highlight"><strong>김*수 손님</strong>께서<br>최시우 님의 환한 미소에 마음이 따뜻해졌다고 하세요! 💕</p>
+                    <a href="#" class="card-link" data-target="#page-growth">
+                        소중한 메시지 확인하기 ✉️ &rarr;
+                    </a>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-calendar-day"></i>
+                        <span>🎪 오늘의 마법 여행</span>
+                    </div>
+                    <p><strong>다음 모험:</strong> 14:00 ~ 16:00 ⚡ T익스프레스에서 스릴과 함께!</p>
+                    <a href="#" class="card-link" data-target="#page-schedule">
+                        하루 일정 모두 보기 📅 &rarr;
+                    </a>
+                </div>
+
+                <div class="card alert-card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>⚠️ 중요한 안전 알림</span>
+                    </div>
+                    <p>오후 3시부터 비가 내릴 예정이에요. 야외 어트랙션이 잠시 멈출 수 있어요 ☔</p>
+                </div>
+            </section>
+
+            <section id="page-schedule" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>⏰ 오늘의 마법 타임라인</span>
+                    </div>
+                    <ul class="schedule-list">
+                        <li class="schedule-item">
+                            <span class="time">10:00 - 14:00</span>
+                            <div class="task">
+                                🚢 아마존 익스프레스 
+                                <span class="location">(모험존)</span>
+                            </div>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">14:00 - 15:00</span>
+                            <div class="task break">
+                                <i class="fa-solid fa-mug-saucer"></i> ☕ 달콤한 휴식 시간
+                            </div>
+                        </li>
+                        <li class="schedule-item">
+                            <span class="time">15:00 - 18:00</span>
+                            <div class="task">
+                                🦁 사파리 트램과 함께하는 여행 
+                                <span class="location">(주토피아 사파리)</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-right-left"></i>
+                        <span>💼 근무 도우미</span>
+                    </div>
+                    <a href="#" class="btn">🔄 동료와 교대하기</a>
+                    <a href="#" class="btn btn-secondary">🏥 컨디션 관리 신청</a>
+                </div>
+            </section>
+
+            <section id="page-growth" class="page">
+                
+                <div class="card star-tracker">
+                    <div class="star-level">⭐ 3-스타 마법사</div>
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-bar-inner"></div>
+                    </div>
+                    <div class="star-progress">
+                        다음 4-스타 마법사까지 감동 <strong>5개</strong> 중 <strong>3개</strong> 수집! 🌟
+                    </div>
+                </div>
+
+                <div class="card praise-log">
+                    <div class="card-header">
+                        <i class="fa-solid fa-inbox"></i>
+                        <span>💌 감동 보관함 (3)</span>
+                    </div>
+                    <div style="display:flex; gap:0.5rem; margin-bottom:0.75rem;">
+                        <button id="open-shout" class="btn btn-secondary" style="flex:1;">💫 동료 칭찬하기</button>
+                        <button id="open-req" class="btn" style="flex:1;">📝 도움 요청하기</button>
+                    </div>
+                    <div class="praise-item">
+                        <div class="icon customer"><i class="fa-solid fa-user-check"></i></div>
+                        <div class="content">
+                            <div class="header">
+                                <span class="name">김*수 손님</span>
+                                <span class="date">2시간 전</span>
+                            </div>
+                            <p class="message">"비 오는데도 환하게 웃으며 안내해주셔서 마음이 따뜻해졌어요! 💕"</p>
+                        </div>
+                    </div>
+                    <div class="praise-item">
+                        <div class="icon colleague"><i class="fa-solid fa-users"></i></div>
+                        <div class="content">
+                            <div class="header">
+                                <span class="name">이*영 캐스트 (동료의 마음)</span>
+                                <span class="date">1일 전</span>
+                            </div>
+                            <p class="message">"오늘 교대 도와주셔서 정말 고마웠어요! 덕분에 손님들께 더 좋은 서비스를 할 수 있었어요 ✨"</p>
+                        </div>
+                    </div>
+                    <div class="praise-item">
+                        <div class="icon customer"><i class="fa-solid fa-user-check"></i></div>
+                        <div class="content">
+                            <div class="header">
+                                <span class="name">박*진 손님</span>
+                                <span class="date">3일 전</span>
+                            </div>
+                            <p class="message">"아이 키에 맞춰 눈을 맞추고 다정하게 말씀해주셔서 감동받았어요 🥰"</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="page-manual" class="page">
+                
+                <input type="search" class="search-bar" placeholder="🔍 마법 가이드 검색 (예: T익스프레스, 안전수칙)">
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>📚 마법 가이드북</span>
+                    </div>
+                    <div class="category-grid">
+                        <a href="#" class="category-item"><i class="fa-solid fa-bolt"></i>⚡ 긴급상황</a>
+                        <a href="#" class="category-item"><i class="fa-solid fa-car-burst"></i>🎢 어트랙션</a>
+                        <a href="#" class="category-item"><i class="fa-solid fa-hand-holding-heart"></i>💝 응대 매직</a>
+                        <a href="#" class="category-item"><i class="fa-solid fa-cloud-sun-rain"></i>🌦️ 날씨 대응</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-lightbulb" style="color: #F59E0B;"></i>
+                        <span>✨ 캐스트의 현장 꿀팁</span>
+                    </div>
+                    <p>
+                        <strong>"수륙양용차 RPM 바 이탈 시 마법 대응법"</strong>
+                        <br>
+                        "과거 운행 중 RPM 바가 빠지는 상황에서 침착하게 대응했던 경험을 공유해요...
+                        이런 소중한 현장 경험들을 모두가 함께 나눠요! 🤝"
+                    </p>
+                </div>
+            </section>
+
+            <section id="page-alerts" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa-solid fa-bell"></i>
+                        <span>🔔 알림 센터</span>
+                    </div>
+                    <p>모든 캐스트님들을 위한 중요한 알림들이 여기에 모여요 📢</p>
+                    <div id="alerts-list"></div>
+                    <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+                        <button id="btn-simulate-missing" class="btn btn-secondary">👶 미아 알림 체험</button>
+                        <button id="btn-clear-alerts" class="btn">🧹 알림 모두 지우기</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <nav class="app-nav">
+            <a href="#page-home" class="nav-link active" data-title="🏰 마법의 홈">
+                <i class="fa-solid fa-house-chimney"></i>
+                <span>홈</span>
+            </a>
+            <a href="#page-schedule" class="nav-link" data-title="📅 마법 스케줄">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>스케줄</span>
+            </a>
+            <a href="#page-alerts" class="nav-link" data-title="🔔 알림센터">
+                <i class="fa-solid fa-bell"></i>
+                <span>알림</span>
+            </a>
+            <a href="#page-growth" class="nav-link" data-title="⭐ 나의 성장">
+                <i class="fa-solid fa-award"></i> <span>성장</span>
+            </a>
+            <a href="#page-manual" class="nav-link" data-title="📚 마법가이드">
+                <i class="fa-solid fa-book-bookmark"></i>
+                <span>매뉴얼</span>
+            </a>
+        </nav>
+
+        <!-- 인-앱 배너 (미아 등 긴급 알림) -->
+        <div id="inAppBanner" class="in-app-banner" role="status">
+            <span id="banner-text"></span>
+            <span class="close-btn" id="banner-close">×</span>
+        </div>
+
+        <!-- 모달: 샤라웃(동료 칭찬) -->
+        <div id="modal-backdrop" class="modal-backdrop" aria-hidden="true">
+                <div class="modal" role="dialog" aria-modal="true">
+                <div class="modal-header">💫 동료에게 감동 전하기</div>
+                <div>
+                    <label>
+                        받을 분의 이름
+                        <input id="shout-to" style="width:100%; padding:0.65rem; margin-top:0.5rem; box-sizing:border-box;" placeholder="예: 이*영" />
+                    </label>
+                    <label style="display:block; margin-top:1rem;">
+                        따뜻한 메시지
+                        <textarea id="shout-message" rows="4" style="width:100%; padding:0.65rem; margin-top:0.5rem; box-sizing:border-box; resize:vertical;" placeholder="동료에게 전하고 싶은 감사 인사를 써주세요 ✨"></textarea>
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button id="shout-send" class="btn">💌 마음 전달하기</button>
+                    <button id="shout-cancel" class="btn btn-secondary">취소</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 모달: 병가/교대 요청(간단한 버전) -->
+        <div id="modal-request" class="modal-backdrop" aria-hidden="true">
+                <div class="modal" role="dialog" aria-modal="true">
+                <div class="modal-header">📝 도움 요청하기</div>
+                <div>
+                    <label>
+                        요청 종류
+                        <select id="req-type" style="width:100%; padding:0.65rem; margin-top:0.5rem; box-sizing:border-box;">
+                            <option value="sick">🏥 컨디션 관리</option>
+                            <option value="swap">🔄 교대 요청</option>
+                        </select>
+                    </label>
+                    <label style="display:block; margin-top:1rem;">
+                        상황 설명
+                        <textarea id="req-message" rows="4" style="width:100%; padding:0.65rem; margin-top:0.5rem; box-sizing:border-box; resize:vertical;" placeholder="간단한 상황이나 요청사항을 알려주세요"></textarea>
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button id="req-send" class="btn">📤 요청 보내기</button>
+                    <button id="req-cancel" class="btn btn-secondary">취소</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        /* 탭 전환 및 헤더 제목 변경 + 추가 기능 (샤라웃, 알림, 병가/교대, 서비스스타 연동 - 로컬 시뮬레이션) */
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        const pageTitle = document.getElementById('page-title');
+        const appContent = document.querySelector('.app-content');
+
+        function handleNavClick(event) {
+            event.preventDefault();
+            const link = event.currentTarget;
+            const targetId = link.getAttribute('href');
+            const targetPage = document.querySelector(targetId);
+            if (!targetPage || link.classList.contains('active')) return;
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            pages.forEach(page => page.classList.remove('active'));
+            link.classList.add('active');
+            targetPage.classList.add('active');
+            pageTitle.textContent = link.dataset.title;
+            appContent.scrollTop = 0;
+            renderAlerts();
+        }
+        navLinks.forEach(link => link.addEventListener('click', handleNavClick));
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeShout();
+                document.getElementById('modal-request').classList.remove('active');
+                document.getElementById('modal-request').setAttribute('aria-hidden','true');
+                hideBanner();
+            }
+        });
+
+        // 카드 내부 링크 이동 지원
+        document.querySelectorAll('.card-link[data-target], .btn[data-target]').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const targetSelector = button.dataset.target;
+                const targetLink = document.querySelector(`.nav-link[href="${targetSelector}"]`);
+                if (targetLink) targetLink.click();
+            });
+        });
+
+        // 로컬 스토리지 키
+        const LS_KEYS = {
+            ALERTS: 'cast_alerts_v1',
+            PRAISES: 'cast_praises_v1',
+            REQUESTS: 'cast_requests_v1',
+            PRAISE_COUNT: 'cast_praise_count_v1'
+        };
+
+        // -- In-app banner --
+        const inAppBanner = document.getElementById('inAppBanner');
+        const bannerText = document.getElementById('banner-text');
+        const bannerClose = document.getElementById('banner-close');
+
+        function showBanner(text) {
+            bannerText.textContent = text;
+            inAppBanner.classList.add('active');
+        }
+        function hideBanner() {
+            inAppBanner.classList.remove('active');
+        }
+        bannerClose.addEventListener('click', hideBanner);
+
+        // Alerts management
+        function loadAlerts() {
+            try { return JSON.parse(localStorage.getItem(LS_KEYS.ALERTS) || '[]'); } catch(e) { return []; }
+        }
+        function saveAlerts(list) { localStorage.setItem(LS_KEYS.ALERTS, JSON.stringify(list)); }
+
+        function addAlert(alert) {
+            const list = loadAlerts();
+            list.unshift(alert);
+            saveAlerts(list);
+            renderAlerts();
+            // show banner and try browser notification
+            showBanner(alert.title + ' — ' + alert.message);
+            if (Notification && Notification.permission === 'granted') {
+                new Notification(alert.title, { body: alert.message });
+            } else if (Notification && Notification.permission !== 'denied') {
+                Notification.requestPermission().then(perm => {
+                    if (perm === 'granted') new Notification(alert.title, { body: alert.message });
+                }).catch(()=>{});
+            }
+        }
+
+        function renderAlerts() {
+            const el = document.getElementById('alerts-list');
+            if (!el) return;
+            const list = loadAlerts();
+            if (!list.length) {
+                el.innerHTML = '<p class="welcome-sub">현재 알림이 없어요. 평화로운 하루네요! 😊</p>';
+                return;
+            }
+            el.innerHTML = list.map(a => `
+                <div class="card" style="margin-bottom:0.5rem;">
+                    <div class="card-header"><i class="fa-solid fa-triangle-exclamation"></i><span>${a.title}</span></div>
+                    <p style="margin:0.25rem 0 0.5rem;"><strong>${a.location||''}</strong> ${a.message}</p>
+                    <small style="color:var(--light-text-color);">${new Date(a.ts).toLocaleString()}</small>
+                </div>
+            `).join('');
+        }
+
+        // 버튼: 시뮬레이션 및 클리어
+        const btnSimMissing = document.getElementById('btn-simulate-missing');
+        const btnClearAlerts = document.getElementById('btn-clear-alerts');
+        if (btnSimMissing) btnSimMissing.addEventListener('click', () => {
+            const alert = { type: 'missing', title: '👶 미아 발생', message: '어린이(키 100cm 추정) 보호자 찾아요. 주토피아 북문 근처에서 마지막 목격됐어요.', location: '🏰 주토피아 북문', ts: Date.now() };
+            addAlert(alert);
+        });
+        if (btnClearAlerts) btnClearAlerts.addEventListener('click', () => { saveAlerts([]); renderAlerts(); hideBanner(); });
+
+        // -- 샤라웃 (동료 칭찬) --
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const openShoutBtn = document.getElementById('open-shout');
+        const shoutCancel = document.getElementById('shout-cancel');
+        const shoutSend = document.getElementById('shout-send');
+        const shoutTo = document.getElementById('shout-to');
+        const shoutMessage = document.getElementById('shout-message');
+
+        function openShout() { modalBackdrop.classList.add('active'); modalBackdrop.setAttribute('aria-hidden','false'); shoutTo.focus(); }
+        function closeShout() { modalBackdrop.classList.remove('active'); modalBackdrop.setAttribute('aria-hidden','true'); shoutTo.value=''; shoutMessage.value=''; }
+        if (openShoutBtn) openShoutBtn.addEventListener('click', openShout);
+        if (shoutCancel) shoutCancel.addEventListener('click', closeShout);
+
+        function loadPraises() { try { return JSON.parse(localStorage.getItem(LS_KEYS.PRAISES) || '[]'); } catch(e) { return []; } }
+        function savePraises(list) { localStorage.setItem(LS_KEYS.PRAISES, JSON.stringify(list)); }
+
+        shoutSend.addEventListener('click', () => {
+            const to = shoutTo.value.trim() || '동료';
+            const msg = shoutMessage.value.trim() || '고마워요! ✨';
+            const entry = { from: '나', to, message: msg, ts: Date.now(), source: 'peer' };
+            const list = loadPraises(); list.unshift(entry); savePraises(list);
+            // increment praise count for recipient (simple global counter for demo)
+            const counts = JSON.parse(localStorage.getItem(LS_KEYS.PRAISE_COUNT) || '{}');
+            counts[to] = (counts[to]||0) + 1; localStorage.setItem(LS_KEYS.PRAISE_COUNT, JSON.stringify(counts));
+            closeShout(); renderPraises(); updateStarTracker();
+            showBanner('💫 ' + to + '님에게 따뜻한 마음을 전달했어요!');
+        });
+
+        function renderPraises() {
+            const container = document.querySelector('.praise-log');
+            if (!container) return;
+            const list = loadPraises();
+            const itemsHtml = list.slice(0,20).map(p => `
+                <div class="praise-item">
+                    <div class="icon ${p.source==='peer'?'colleague':'customer'}"><i class="fa-solid fa-users"></i></div>
+                    <div class="content">
+                        <div class="header"><span class="name">${p.to}</span><span class="date">${new Date(p.ts).toLocaleString()}</span></div>
+                        <p class="message">${p.message}</p>
+                    </div>
+                </div>
+            `).join('');
+            // replace only the items (find existing .praise-item parent)
+            const existingItems = container.querySelectorAll('.praise-item');
+            if (existingItems.length) {
+                // remove old items
+                existingItems.forEach(n => n.remove());
+                // insert new items at end of card
+                container.insertAdjacentHTML('beforeend', itemsHtml);
+            }
+        }
+
+        // -- 병가/교대 요청 모달 --
+        const modalRequest = document.getElementById('modal-request');
+        const openReqBtn = document.getElementById('open-req');
+        const reqCancel = document.getElementById('req-cancel');
+        const reqSend = document.getElementById('req-send');
+        const reqType = document.getElementById('req-type');
+        const reqMessage = document.getElementById('req-message');
+
+        if (openReqBtn) openReqBtn.addEventListener('click', () => { modalRequest.classList.add('active'); modalRequest.setAttribute('aria-hidden','false'); reqMessage.focus(); });
+        if (reqCancel) reqCancel.addEventListener('click', () => { modalRequest.classList.remove('active'); modalRequest.setAttribute('aria-hidden','true'); });
+        if (reqSend) reqSend.addEventListener('click', () => {
+            const r = { type: reqType.value, message: reqMessage.value, ts: Date.now(), from: '나' };
+            const list = JSON.parse(localStorage.getItem(LS_KEYS.REQUESTS) || '[]'); list.unshift(r); localStorage.setItem(LS_KEYS.REQUESTS, JSON.stringify(list));
+            modalRequest.classList.remove('active'); modalRequest.setAttribute('aria-hidden','true'); reqMessage.value = '';
+            showBanner('📤 ' + (r.type==='sick'?'컨디션 관리':'교대') + ' 요청을 보냈어요. 곧 답변을 받으실 거예요!');
+        });
+
+        // 서비스스타 - 간단한 스타 트래커 업데이트 (로컬 카운트 기반)
+        function updateStarTracker() {
+            // For demo: show counts for "나" from PRAISE_COUNT
+            const counts = JSON.parse(localStorage.getItem(LS_KEYS.PRAISE_COUNT) || '{}');
+            const myCount = counts['나'] || counts['최시우'] || 3; // fallback sample
+            const needed = 5; const current = myCount % needed; const stars = Math.floor(myCount / needed) + 1;
+            const progress = Math.min(100, Math.round((current/needed)*100));
+            const bar = document.querySelector('.progress-bar-inner'); if (bar) bar.style.width = progress + '%';
+            const starLevel = document.querySelector('.star-level'); if (starLevel) starLevel.textContent = '⭐ ' + Math.max(1, stars) + '-스타 마법사';
+            const starProgress = document.querySelector('.star-progress'); if (starProgress) starProgress.innerHTML = `다음 ${stars+1}-스타 마법사까지 감동 <strong>${needed}</strong> 중 <strong>${current}</strong> 수집! 🌟`;
+        }
+
+        // 초기화
+        function init() {
+            renderPraises(); updateStarTracker(); renderAlerts();
+            // wire up open shout via long-press on praise card as fallback
+            const praiseCard = document.querySelector('.praise-card'); if (praiseCard) praiseCard.addEventListener('dblclick', openShout);
+        }
+
+        // on load
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
+
+</body>
+</html>
