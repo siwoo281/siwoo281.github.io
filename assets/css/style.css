@@ -202,7 +202,8 @@ body::before {
         line-height: 1.5;
     }
     #hero .subtitle {
-        font-size: 1.2em;
+        font-size: 1.1em;
+        color: var(--text-color);
     }
     .stat-number {
         font-size: 2.2em;
@@ -228,6 +229,14 @@ body::before {
     }
     .about-content {
         padding-right: 0;
+        text-align: center;
+    }
+    .story-step {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    .story-content {
         text-align: center;
     }
     .skill-tags {
