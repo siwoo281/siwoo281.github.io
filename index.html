@@ -131,6 +131,8 @@
             <div class="container">
                 <h2 class="section-title">Projects</h2>
 
+                <div class="filter-buttons"></div>
+
                 <div class="project-item">
                     <a href="assets/Cast_Link.png" class="project-thumbnail-link">
                         <img src="assets/Cast_Link.png" alt="Cast-Link 놀이공원 캐스트 전용 앱" class="project-thumbnail large-image" loading="lazy" decoding="async" width="300" height="200">
@@ -568,6 +570,53 @@
             });
 
             // .project-item에 대한 개별 애니메이션은 제거하여 즉시 로드되도록 함
+
+            // --- Project Filter Functionality ---
+            const filterContainer = document.querySelector('.filter-buttons');
+            if (filterContainer) {
+                const projectItems = document.querySelectorAll('.project-item');
+
+                const tags = new Set();
+                projectItems.forEach(item => {
+                    item.querySelectorAll('.project-tags span').forEach(tag => {
+                        tags.add(tag.textContent.replace('#', '').trim());
+                    });
+                });
+
+                let filterButtonsHTML = '<button class="filter-btn active" data-filter="all">전체</button>';
+                [...tags].sort().forEach(tag => {
+                    filterButtonsHTML += `<button class="filter-btn" data-filter="${tag}">${tag}</button>`;
+                });
+                filterContainer.innerHTML = filterButtonsHTML;
+
+                const filterButtons = document.querySelectorAll('.filter-btn');
+
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const filterValue = button.dataset.filter;
+
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+
+                        projectItems.forEach(item => {
+                            if (filterValue === 'all') {
+                                item.classList.remove('hidden');
+                            } else {
+                                const itemTags = new Set();
+                                item.querySelectorAll('.project-tags span').forEach(tag => {
+                                    itemTags.add(tag.textContent.replace('#', '').trim());
+                                });
+
+                                if (itemTags.has(filterValue)) {
+                                    item.classList.remove('hidden');
+                                } else {
+                                    item.classList.add('hidden');
+                                }
+                            }
+                        });
+                    });
+                });
+            }
         });
 
         // 헤더 스크롤 효과
