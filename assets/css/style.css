@@ -41,14 +41,6 @@ body::before {
     66% { transform: translate(-10px, 10px) rotate(-1deg); }
 }
 .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
-    .header {
-        padding: 15px 0;
-        flex-direction: column;
-        gap: 15px;
-    }
-    .logo {
-        font-size: 1.3em;
-    }
 .header .container { display: flex; justify-content: space-between; align-items: center; }
 .logo { font-size: 1.4em; font-weight: 700; color: var(--text-color); text-decoration: none; }
 .nav-links a { color: var(--light-text-color); text-decoration: none; margin-left: 25px; font-weight: 500; font-size: 1em; transition: color 0.3s ease; }
@@ -156,6 +148,8 @@ body::before {
 .footer .social-links a { color: var(--light-text-color); font-size: 1.5em; margin: 0 15px; transition: color 0.3s ease; }
 .footer .social-links a:hover { color: var(--primary-color); }
 .footer p { margin-top: 25px; }
+/* 글로벌 미디어 요소: 모바일에서 이미지/비디오가 부모 폭 넘치지 않도록 */
+img, video { max-width: 100%; height: auto; }
 /* 페이지 로드 애니메이션 */
 .fade-in { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards; }
 .fade-in-delay-1 { animation-delay: 0.2s; }
@@ -169,6 +163,8 @@ body::before {
     .section {
         padding: 60px 0;
     }
+    .header { padding: 12px 0; }
+    .logo { font-size: 1.2em; }
     .header .nav-links {
         display: none;
         flex-direction: column;
@@ -216,9 +212,7 @@ body::before {
         justify-content: center;
         gap: 30px;
     }
-    .about-container {
-        min-height: 200px;
-    }
+    .about-container { min-height: 200px; }
     .about-container::before {
         width: 250px;
         height: 250px;
@@ -226,11 +220,18 @@ body::before {
         left: 50%;
         transform: translate(-50%, -50%);
         opacity: 0.08;
+        pointer-events: none;
     }
     .about-content {
         padding-right: 0;
         text-align: center;
     }
+    .about-intro { text-align: left; margin-bottom: 30px; }
+    .about-story, .story-step, .story-content { width: 100%; max-width: 100%; }
+    .story-step { flex-direction: column; align-items: center; gap: 16px; }
+    .story-icon { font-size: 2em; }
+    .story-content { text-align: center; }
+    .story-content p, #about p { width: 100%; max-width: 100%; }
     .story-step {
         flex-direction: column;
         align-items: center;
@@ -238,6 +239,7 @@ body::before {
     }
     .story-content {
         text-align: center;
+        width: 100%;
     }
     .skill-tags {
         justify-content: center;
