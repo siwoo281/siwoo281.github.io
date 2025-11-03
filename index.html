@@ -131,9 +131,15 @@
             <div class="container">
                 <h2 class="section-title">Projects</h2>
 
-                <div class="filter-buttons"></div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="featured">⭐ 추천</button>
+                    <button class="filter-btn" data-filter="planning">💡 기획&UX</button>
+                    <button class="filter-btn" data-filter="frontend">💻 Frontend</button>
+                    <button class="filter-btn" data-filter="data">📊 데이터</button>
+                    <button class="filter-btn" data-filter="all">전체보기</button>
+                </div>
 
-                <div class="project-item">
+                <div class="project-item" data-category="featured planning frontend">
                     <a href="assets/Cast_Link.png" class="project-thumbnail-link">
                         <img src="assets/Cast_Link.png" alt="Cast-Link 놀이공원 캐스트 전용 앱" class="project-thumbnail large-image" loading="lazy" decoding="async" width="300" height="200">
                     </a>
@@ -166,7 +172,7 @@
                     </div>
                 </div>
 
-                <div class="project-item">
+                <div class="project-item" data-category="featured data">
                     <a href="assets/테마파크여행가이드.png" class="project-thumbnail-link">
                         <img src="assets/테마파크여행가이드.png" alt="테마파크 여행 가이드" class="project-thumbnail large-image" loading="lazy" decoding="async" width="300" height="200">
                     </a>
@@ -198,7 +204,7 @@
                     </div>
                 </div>
 
-                <div class="project-item">
+                <div class="project-item" data-category="featured frontend data">
                     <a href="assets/캠퍼스헬퍼.png" class="project-thumbnail-link">
                         <img src="assets/캠퍼스헬퍼.png" alt="캠퍼스 헬퍼 - 배재대학교 시간표 웹앱" class="project-thumbnail large-image" loading="lazy" decoding="async" width="300" height="200">
                     </a>
@@ -234,7 +240,7 @@
                     </div>
                 </div>
 
-                <div class="project-item">
+                <div class="project-item" data-category="planning frontend">
                     <a href="assets/축제가이드.png" class="project-thumbnail-link">
                         <img src="assets/축제가이드.png" alt="세계 축제 가이드" class="project-thumbnail large-image" loading="lazy" decoding="async" width="300" height="200">
                     </a>
@@ -265,7 +271,7 @@
                     </div>
                 </div>
                 
-                <div class="project-item">
+                <div class="project-item" data-category="planning frontend">
                     <a href="assets/랜덤팀배정기.png" class="project-thumbnail-link">
                         <img src="assets/랜덤팀배정기.png" alt="랜덤 팀 배정기" class="project-thumbnail large-image" loading="lazy" decoding="async" width="300" height="200">
                     </a>
@@ -297,7 +303,7 @@
                     </div>
                 </div>
 
-                <div class="project-item">
+                <div class="project-item" data-category="planning frontend">
                     <a href="assets/청년고용.png" class="project-thumbnail-link">
                         <img src="assets/청년고용.png" alt="청년 고용 정책 포털" class="project-thumbnail large-image" loading="lazy" decoding="async" width="300" height="200">
                     </a>
@@ -329,7 +335,7 @@
                     </div>
                 </div>
 
-                <div class="project-item">
+                <div class="project-item" data-category="frontend">
                     <a href="assets/관광자원계산기.png" class="project-thumbnail-link">
                         <img src="assets/관광자원계산기.png" alt="관광 자원 계산기" class="project-thumbnail" loading="lazy" decoding="async" width="300" height="200">
                     </a>
@@ -359,7 +365,7 @@
                     </div>
                 </div>
 
-                <div class="project-item">
+                <div class="project-item" data-category="planning frontend">
                     <a href="assets/결정.png" class="project-thumbnail-link">
                         <img src="assets/결정.png" alt="의사결정 헬퍼" class="project-thumbnail" loading="lazy" decoding="async" width="300" height="200">
                     </a>
@@ -390,7 +396,7 @@
                     </div>
                 </div>
 
-                <div class="project-item">
+                <div class="project-item" data-category="featured planning data">
                     <a href="assets/도마시장로컬투어.png" class="project-thumbnail-link">
                         <img src="assets/도마시장로컬투어.png" alt="도마시장 리빙랩" class="project-thumbnail large-image" loading="lazy" decoding="async" width="300" height="200">
                     </a>
@@ -572,50 +578,32 @@
             // .project-item에 대한 개별 애니메이션은 제거하여 즉시 로드되도록 함
 
             // --- Project Filter Functionality ---
-            const filterContainer = document.querySelector('.filter-buttons');
-            if (filterContainer) {
-                const projectItems = document.querySelectorAll('.project-item');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectItems = document.querySelectorAll('.project-item');
 
-                const tags = new Set();
+            const filterProjects = (filterValue) => {
                 projectItems.forEach(item => {
-                    item.querySelectorAll('.project-tags span').forEach(tag => {
-                        tags.add(tag.textContent.replace('#', '').trim());
-                    });
+                    const categories = item.dataset.category ? item.dataset.category.split(' ') : [];
+                    if (filterValue === 'all' || categories.includes(filterValue)) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
                 });
+            };
 
-                let filterButtonsHTML = '<button class="filter-btn active" data-filter="all">전체</button>';
-                [...tags].sort().forEach(tag => {
-                    filterButtonsHTML += `<button class="filter-btn" data-filter="${tag}">${tag}</button>`;
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filterValue = button.dataset.filter;
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    filterProjects(filterValue);
                 });
-                filterContainer.innerHTML = filterButtonsHTML;
+            });
 
-                const filterButtons = document.querySelectorAll('.filter-btn');
-
-                filterButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const filterValue = button.dataset.filter;
-
-                        filterButtons.forEach(btn => btn.classList.remove('active'));
-                        button.classList.add('active');
-
-                        projectItems.forEach(item => {
-                            if (filterValue === 'all') {
-                                item.classList.remove('hidden');
-                            } else {
-                                const itemTags = new Set();
-                                item.querySelectorAll('.project-tags span').forEach(tag => {
-                                    itemTags.add(tag.textContent.replace('#', '').trim());
-                                });
-
-                                if (itemTags.has(filterValue)) {
-                                    item.classList.remove('hidden');
-                                } else {
-                                    item.classList.add('hidden');
-                                }
-                            }
-                        });
-                    });
-                });
+            // Default filter on page load
+            if (filterButtons.length > 0) {
+                filterProjects('featured');
             }
         });
 
