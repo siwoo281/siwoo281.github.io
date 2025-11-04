@@ -25,10 +25,32 @@
     <meta name="twitter:image" content="https://siwoo281.github.io/assets/profile.JPG">    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     
+    <!-- DNS Prefetch & Preconnect for Performance -->
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Critical CSS Inline (fonst will be loaded async) -->
+    <style>
+        /* Critical CSS - Above the fold styles */
+        :root{--bg-color:#f8f9fa;--text-color:#212529;--light-text-color:#6c757d;--primary-color:#2563eb;--primary-light:#3b82f6;--accent-color:#10b981;--border-color:#dee2e6;--card-bg-color:#ffffff}
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;margin:0;background:#f8f9fa;color:var(--text-color);line-height:1.7}
+        .container{max-width:960px;margin:0 auto;padding:0 20px}
+        .header{padding:15px 0;position:sticky;top:0;background:rgba(248,249,250,0.95);z-index:1000;backdrop-filter:blur(10px)}
+        #hero{padding:100px 0;text-align:left}
+        #hero h1{font-size:3.2em;font-weight:700;margin:0 0 15px 0;line-height:1.3}
+    </style>
+    
+    <!-- Load fonts asynchronously -->
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"></noscript>
+    
+    <!-- Load Font Awesome asynchronously -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"></noscript>
+    
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -912,6 +934,11 @@
             "https://www.notion.so/siwoo281"
         ]
     }
+    </script>
+
+    <!-- Async font loader fallback -->
+    <script>
+        !function(e){"use strict";var t=function(t,n,o){var i,r=e.document,a=r.createElement("link");if(n)i=n;else{var l=(r.body||r.getElementsByTagName("head")[0]).childNodes;i=l[l.length-1]}var d=r.styleSheets;if(o)for(var s in o)o.hasOwnProperty(s)&&a.setAttribute(s,o[s]);a.rel="stylesheet",a.href=t,a.media="only x",function e(t){if(r.body)return t();setTimeout(function(){e(t)})}(function(){i.parentNode.insertBefore(a,n?i:i.nextSibling)});var f=function(e){for(var t=a.href,n=d.length;n--;)if(d[n].href===t)return e();setTimeout(function(){f(e)})};return a.addEventListener&&a.addEventListener("load",function(){this.media="all"}),a.onloadcssdefined=f,f(function(){a.media!=="all"&&(a.media="all")}),a};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this);
     </script>
     
 </body>
