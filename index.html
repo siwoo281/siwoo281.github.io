@@ -6,7 +6,6 @@
     <title>최시우 | 기술을 이해하는 기획자 포트폴리오</title>
     
     <!-- SEO Meta Tags -->
-    <!-- SEO Meta Tags -->
     <meta name="description" content="기술의 원리를 이해하고 데이터로 사용자의 필요를 발견하여, 가장 현실적이고 효과적인 해결책을 만드는 기획자 최시우입니다.">
     <meta name="keywords" content="포트폴리오, 프로덕트 기획자, PM, 서비스 기획, 기술 기획, 데이터 분석, Python, JavaScript">
     <meta name="author" content="최시우">
@@ -66,7 +65,7 @@
                 <a href="#awards">Awards</a>
                 <a href="#contact">Contact</a>
             </nav>
-            <button class="hamburger" id="hamburger" aria-label="메뉴 열기" aria-controls="navLinks" aria-expanded="false"><i class="fas fa-bars"></i></button>
+            <button class="hamburger" id="hamburger" aria-label="메뉴 열기" aria-controls="navLinks" aria-expanded="false"><i class="fas fa-bars" aria-hidden="true"></i></button>
         </div>
     </header>
 
@@ -74,8 +73,8 @@
         <section id="hero" class="container">
             <h1 class="fade-in">사람들에게 <span class="highlight-text">행복</span>을 만들어주고 싶은 <br><span class="gradient-text">기술을 이해하는 기획자</span> <span class="name-text">최시우입니다.</span></h1>
             <p class="subtitle fade-in fade-in-delay-1">
-                <strong>'왜?'</strong>라는 질문으로 문제의 본질을 파고들고,<br>
-                <strong>'어떻게?'</strong> 구현될지 알기에 가장 현실적인 해결책을 기획합니다.
+                <em>'왜?'</em>라는 질문으로 문제의 본질을 파고들고,<br>
+                <em>'어떻게?'</em> 구현될지 알기에 가장 현실적인 해결책을 기획합니다.
             </p>
             <div class="hero-stats fade-in fade-in-delay-2">
                 <div class="stat-item">
@@ -185,10 +184,10 @@
                         </div>
                         <div class="project-links">
                             <a href="https://siwoo281.github.io/Cast_Link/" target="_blank" class="btn-primary">
-                                <i class="fas fa-rocket"></i> 데모 체험하기
+                                <i class="fas fa-rocket" aria-hidden="true"></i> 데모 체험하기
                             </a>
                             <a href="https://github.com/siwoo281/Cast-Link" target="_blank" class="btn-secondary">
-                                <i class="fab fa-github"></i> GitHub
+                                <i class="fab fa-github" aria-hidden="true"></i> GitHub
                             </a>
                         </div>
                     </div>
@@ -256,7 +255,7 @@
                                 <i class="fab fa-github"></i> GitHub
                             </a>
                             <a href="#" id="case-study-trigger" class="btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);">
-                                <i class="fas fa-search-plus"></i> 심층 분석 보기
+                                <i class="fas fa-search-plus" aria-hidden="true"></i> 심층 분석 보기
                             </a>
                         </div>
                     </div>
@@ -443,7 +442,7 @@
                                 <i class="fas fa-rocket"></i> 데모 사이트 보기
                             </a>
                             <a href="https://www.notion.so/siwoo281/doma-market-living-lab" target="_blank" class="btn-primary">
-                                <i class="fas fa-file-alt"></i> 발표 자료
+                                <i class="fas fa-file-alt" aria-hidden="true"></i> 발표 자료
                             </a>
                             <a href="https://github.com/siwoo281/doma-market-analysis" target="_blank" class="btn-secondary">
                                 <i class="fab fa-github"></i> 분석 코드
@@ -451,6 +450,12 @@
                         </div>
                     </div>
                 </div>
+                    <!-- 전체보기 버튼: 추천 4개 프로젝트 밑에 추가 -->
+                    <div style="text-align:center; margin: 40px 0 20px 0;">
+                        <button id="show-all-projects" class="filter-btn" style="font-size:1.35em; padding:22px 56px; min-width:320px; border-radius:32px; background:var(--gradient-primary); color:white; border:none; box-shadow:0 6px 24px rgba(37,99,235,0.18); cursor:pointer; font-weight:800; letter-spacing:0.5px;">
+                            전체 프로젝트 모두 보기
+                        </button>
+                    </div>
             </div>
         </section>
 
@@ -530,10 +535,10 @@
     <footer id="contact" class="footer">
         <div class="container">
             <div class="social-links">
-                <a href="https://github.com/siwoo281" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="mailto:siwoo281@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a>
-                <a href="https://www.notion.so/siwoo281" target="_blank" title="Notion Blog"><i class="fas fa-blog"></i></a>
-                <a href="https://www.linkedin.com/in/siwoo281" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/siwoo281" target="_blank" title="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                <a href="mailto:siwoo281@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+                <a href="https://www.notion.so/siwoo281" target="_blank" title="Notion Blog"><i class="fas fa-blog" aria-hidden="true"></i></a>
+                <a href="https://www.linkedin.com/in/siwoo281" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
             </div>
             <p>&copy; 2025 최시우. All rights reserved.</p>
         </div>
@@ -627,6 +632,17 @@
             if (filterButtons.length > 0) {
                 filterProjects('featured');
             }
+
+                // 전체보기 버튼 클릭 시 전체 프로젝트 보여주기
+                const showAllBtn = document.getElementById('show-all-projects');
+                if (showAllBtn) {
+                    showAllBtn.addEventListener('click', () => {
+                        filterProjects('all');
+                        // 전체보기 버튼도 active 스타일 적용
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+                        showAllBtn.classList.add('active');
+                    });
+                }
         });
 
         // 헤더 스크롤 효과
