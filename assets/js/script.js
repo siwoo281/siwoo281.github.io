@@ -376,7 +376,14 @@ caseStudyModal.addEventListener('keydown', (e) => {
 });
 
 // QR Code Modal - Initialize after DOM and library are loaded
+let qrModalInitialized = false;
+
 function initQRCodeModal() {
+    // Prevent multiple initializations
+    if (qrModalInitialized) {
+        return;
+    }
+    
     const qrModal = document.getElementById('qr-modal');
     const qrModalClose = qrModal?.querySelector('.qr-modal-close');
     const qrCanvas = document.getElementById('qr-code-canvas');
@@ -384,69 +391,82 @@ function initQRCodeModal() {
     const qrButtons = document.querySelectorAll('.btn-qr');
     
     if (!qrModal || !qrModalClose || !qrCanvas || !qrUrl) {
-        console.error('QR Modal elements not found');
+        console.error('QR Modal elements not found', { qrModal, qrModalClose, qrCanvas, qrUrl });
         return;
     }
+    
+    if (qrButtons.length === 0) {
+        console.warn('No QR buttons found');
+        return;
+    }
+    
+    console.log('Initializing QR Code Modal with', qrButtons.length, 'buttons');
+    qrModalInitialized = true;
     
     let lastFocusedBeforeQR = null;
 
     function openQRModal(url) {
-        // Use online QR code API as fallback if library is not available
-        if (typeof QRCode !== 'undefined') {
-            // Use library if available
-            const ctx = qrCanvas.getContext('2d');
-            ctx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
-            
-            QRCode.toCanvas(qrCanvas, url, {
-                width: 256,
-                margin: 2,
-                color: {
-                    dark: '#212529',
-                    light: '#ffffff'
-                }
-            }, (error) => {
-                if (error) {
-                    console.error('QR code generation error:', error);
-                    useOnlineQR(url);
-                } else {
-                    showQRModal(url);
-                }
-            });
-        } else {
-            // Use online API
-            useOnlineQR(url);
+        console.log('openQRModal called with URL:', url);
+        if (!url) {
+            console.error('No URL provided to openQRModal');
+            alert('QR 코드를 생성할 URL이 없습니다.');
+            return;
         }
+        
+        // Always use online API for reliability (especially on GitHub Pages)
+        console.log('Generating QR code using online API...');
+        useOnlineQR(url);
     }
     
     function useOnlineQR(url) {
-        // Use online QR code API
+        // Use online QR code API (no CORS for images from qrserver.com)
         const qrImage = new Image();
         const encodedUrl = encodeURIComponent(url);
-        qrImage.crossOrigin = 'anonymous';
+        
+        // Set canvas size first
+        qrCanvas.width = 256;
+        qrCanvas.height = 256;
+        qrCanvas.style.display = 'block';
+        
         qrImage.onload = function() {
-            const ctx = qrCanvas.getContext('2d');
-            qrCanvas.width = qrImage.width;
-            qrCanvas.height = qrImage.height;
-            ctx.drawImage(qrImage, 0, 0);
-            showQRModal(url);
+            try {
+                const ctx = qrCanvas.getContext('2d');
+                ctx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
+                ctx.drawImage(qrImage, 0, 0, qrCanvas.width, qrCanvas.height);
+                showQRModal(url);
+            } catch (error) {
+                console.error('Error drawing QR code:', error);
+                showQRModal(url);
+            }
         };
-        qrImage.onerror = function() {
-            // Fallback to simple text display
-            console.error('Failed to load QR code image');
+        
+        qrImage.onerror = function(error) {
+            console.error('Failed to load QR code image:', error);
+            // Show modal anyway with URL text
             qrCanvas.style.display = 'none';
             showQRModal(url);
         };
-        // Using api.qrserver.com
+        
+        // Using api.qrserver.com (works without CORS for img tags)
         qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodedUrl}`;
     }
     
     function showQRModal(url) {
+        console.log('Showing QR modal for URL:', url);
         qrUrl.textContent = url;
         qrModal.classList.add('visible');
         document.body.classList.add('no-scroll');
         lastFocusedBeforeQR = document.activeElement;
-        qrModalClose.focus();
-        qrCanvas.style.display = 'block'; // Make sure canvas is visible
+        
+        // Make sure canvas is visible
+        qrCanvas.style.display = 'block';
+        
+        // Focus close button
+        setTimeout(() => {
+            qrModalClose.focus();
+        }, 100);
+        
+        console.log('QR modal should be visible now');
     }
 
     function closeQRModal() {
@@ -462,12 +482,18 @@ function initQRCodeModal() {
     qrButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             const url = button.getAttribute('data-qr-url');
+            console.log('QR button clicked, URL:', url);
             if (url) {
                 openQRModal(url);
+            } else {
+                console.error('No data-qr-url attribute found on button');
             }
         });
     });
+    
+    console.log('QR Code Modal initialized successfully');
 
     // QR Modal close handlers
     qrModalClose.addEventListener('click', closeQRModal);
@@ -504,8 +530,28 @@ function initQRCodeModal() {
 }
 
 // Initialize QR Code Modal - Works with or without library (uses online API as fallback)
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize immediately - doesn't require library (will use online API if library not available)
-    initQRCodeModal();
-});
+function initializeQRCodeFeature() {
+    console.log('Initializing QR Code feature...');
+    
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initQRCodeModal, 100);
+        });
+    } else {
+        // DOM is already ready
+        setTimeout(initQRCodeModal, 100);
+    }
+    
+    // Also try on window load as backup
+    window.addEventListener('load', function() {
+        if (!qrModalInitialized) {
+            console.log('QR Code modal not initialized yet, trying again...');
+            setTimeout(initQRCodeModal, 200);
+        }
+    });
+}
+
+// Start initialization
+initializeQRCodeFeature();
 
