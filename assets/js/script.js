@@ -80,20 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Default filter on page load
+    // Default filter on page load - Show all projects
     if (filterButtons.length > 0) {
-        filterProjects('featured');
-    }
-
-    // 전체보기 버튼 클릭 시 전체 프로젝트 보여주기
-    const showAllBtn = document.getElementById('show-all-projects');
-    if (showAllBtn) {
-        showAllBtn.addEventListener('click', () => {
-            filterProjects('all');
-            // 전체보기 버튼도 active 스타일 적용
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            showAllBtn.classList.add('active');
-        });
+        filterProjects('all');
     }
 });
 

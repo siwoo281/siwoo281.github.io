@@ -78,9 +78,12 @@
                 <em>'왜?'</em>라는 질문으로 문제의 본질을 파고들고,<br>
                 <em>'어떻게?'</em> 구현될지 알기에 가장 현실적인 해결책을 기획합니다.
             </p>
+            <p class="hero-tagline fade-in fade-in-delay-1">
+                📈 열정 넘치는 20대 기획자, 지금 저점매수 하세요
+            </p>
             <div class="hero-stats fade-in fade-in-delay-2">
                 <div class="stat-item">
-                    <span class="stat-number">9개</span>
+                    <span class="stat-number">12개</span>
                     <span class="stat-label">프로젝트</span>
                 </div>
                 <div class="stat-item">
@@ -155,11 +158,11 @@
                 <h2 class="section-title">Projects</h2>
 
                 <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="featured">⭐ 추천</button>
+                    <button class="filter-btn active" data-filter="all">전체보기</button>
+                    <button class="filter-btn" data-filter="featured">⭐ 추천</button>
                     <button class="filter-btn" data-filter="planning">💡 기획&UX</button>
                     <button class="filter-btn" data-filter="frontend">💻 Frontend</button>
                     <button class="filter-btn" data-filter="data">📊 데이터</button>
-                    <button class="filter-btn" data-filter="all">전체보기</button>
                 </div>
 
                 <div class="project-item" data-category="featured planning frontend">
@@ -452,12 +455,93 @@
                         </div>
                     </div>
                 </div>
-                    <!-- 전체보기 버튼: 추천 4개 프로젝트 밑에 추가 -->
-                    <div class="center-wrapper">
-                        <button id="show-all-projects" class="filter-btn filter-btn-large">
-                            전체 프로젝트 모두 보기
-                        </button>
+
+                <div class="project-item" data-category="frontend">
+                    <div class="project-content">
+                        <h3>💖 애매한 감정, 좋아하는 걸까? (React Web App)</h3>
+                        <p>
+                            감정이 애매할 때 자신의 마음을 확인해보는 인터랙티브 테스트 웹 애플리케이션입니다.
+                        </p>
+                        <p>
+                            12개의 질문으로 감정을 확인하고 점수 기반 결과 분석을 제공합니다. <strong>결과 이미지 저장과 친구에게 공유하기 기능</strong>을 구현했으며, 모바일 최적화된 반응형 디자인을 적용했습니다.
+                            <br><em>🎯 특징: React 18 + Styled Components + Framer Motion 애니메이션 + 모바일 퍼스트</em>
+                        </p>
+                        <div class="project-tags">
+                            <span>#React</span>
+                            <span>#Styled Components</span>
+                            <span>#Framer Motion</span>
+                            <span>#html2canvas</span>
+                            <span>#모바일웹</span>
+                            <span>#인터랙티브</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://siwoo281.github.io/do-i-like" target="_blank" class="btn-primary">
+                                <i class="fas fa-rocket" aria-hidden="true"></i> 데모 체험하기
+                            </a>
+                            <a href="https://github.com/siwoo281/do-i-like" target="_blank" class="btn-secondary">
+                                <i class="fab fa-github" aria-hidden="true"></i> GitHub
+                            </a>
+                        </div>
                     </div>
+                </div>
+
+                <div class="project-item" data-category="frontend">
+                    <div class="project-content">
+                        <h3>💊 나의 연애 세포 생존 테스트 (React + Tailwind CSS)</h3>
+                        <p>
+                            MZ 세대를 타깃으로 한 바이럴 인터랙티브 웹 애플리케이션입니다.
+                        </p>
+                        <p>
+                            12개의 질문으로 연애 세포 생존률을 계산하고, 점수 구간별 맞춤 처방전을 제공합니다. <strong>파스텔 톤의 트렌디한 UI와 실시간 진행 상황 표시</strong>로 사용자 경험을 최적화했습니다.
+                            <br><em>🎯 특징: React 19 + Tailwind CSS + 바이럴 마케팅 전략</em>
+                        </p>
+                        <div class="project-tags">
+                            <span>#React</span>
+                            <span>#Tailwind CSS</span>
+                            <span>#Vite</span>
+                            <span>#바이럴</span>
+                            <span>#모바일웹</span>
+                            <span>#UI/UX</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://siwoo281.github.io/sepo" target="_blank" class="btn-primary">
+                                <i class="fas fa-rocket" aria-hidden="true"></i> 데모 사이트 보기
+                            </a>
+                            <a href="https://github.com/siwoo281/sepo" target="_blank" class="btn-secondary">
+                                <i class="fab fa-github" aria-hidden="true"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item" data-category="planning frontend">
+                    <div class="project-content">
+                        <h3>📊 아이젠하워 매트릭스 - 우선순위 관리 도구</h3>
+                        <p>
+                            급한 일과 중요한 일을 구분하여 효율적으로 관리할 수 있는 우선순위 관리 웹 도구입니다.
+                        </p>
+                        <p>
+                            아이젠하워 매트릭스 이론을 바탕으로 <strong>할 일을 4개의 카테고리(긴급+중요, 긴급하지않음+중요, 긴급+중요하지않음, 긴급하지않음+중요하지않음)로 분류</strong>하여 시각적으로 관리할 수 있습니다. 깔끔한 디자인과 직관적인 인터페이스로 사용성을 높였습니다.
+                            <br><em>🎯 특징: 생산성 향상 도구 + 직관적인 UI/UX</em>
+                        </p>
+                        <div class="project-tags">
+                            <span>#HTML</span>
+                            <span>#CSS</span>
+                            <span>#JavaScript</span>
+                            <span>#생산성도구</span>
+                            <span>#시간관리</span>
+                            <span>#기획</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://siwoo281.github.io/sisi" target="_blank" class="btn-primary">
+                                <i class="fas fa-rocket" aria-hidden="true"></i> 데모 사이트 보기
+                            </a>
+                            <a href="https://github.com/siwoo281/sisi" target="_blank" class="btn-secondary">
+                                <i class="fab fa-github" aria-hidden="true"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
