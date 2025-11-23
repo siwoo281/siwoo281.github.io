@@ -375,3 +375,137 @@ caseStudyModal.addEventListener('keydown', (e) => {
     }
 });
 
+// QR Code Modal - Initialize after DOM and library are loaded
+function initQRCodeModal() {
+    const qrModal = document.getElementById('qr-modal');
+    const qrModalClose = qrModal?.querySelector('.qr-modal-close');
+    const qrCanvas = document.getElementById('qr-code-canvas');
+    const qrUrl = document.getElementById('qr-code-url');
+    const qrButtons = document.querySelectorAll('.btn-qr');
+    
+    if (!qrModal || !qrModalClose || !qrCanvas || !qrUrl) {
+        console.error('QR Modal elements not found');
+        return;
+    }
+    
+    let lastFocusedBeforeQR = null;
+
+    function openQRModal(url) {
+        // Use online QR code API as fallback if library is not available
+        if (typeof QRCode !== 'undefined') {
+            // Use library if available
+            const ctx = qrCanvas.getContext('2d');
+            ctx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
+            
+            QRCode.toCanvas(qrCanvas, url, {
+                width: 256,
+                margin: 2,
+                color: {
+                    dark: '#212529',
+                    light: '#ffffff'
+                }
+            }, (error) => {
+                if (error) {
+                    console.error('QR code generation error:', error);
+                    useOnlineQR(url);
+                } else {
+                    showQRModal(url);
+                }
+            });
+        } else {
+            // Use online API
+            useOnlineQR(url);
+        }
+    }
+    
+    function useOnlineQR(url) {
+        // Use online QR code API
+        const qrImage = new Image();
+        const encodedUrl = encodeURIComponent(url);
+        qrImage.crossOrigin = 'anonymous';
+        qrImage.onload = function() {
+            const ctx = qrCanvas.getContext('2d');
+            qrCanvas.width = qrImage.width;
+            qrCanvas.height = qrImage.height;
+            ctx.drawImage(qrImage, 0, 0);
+            showQRModal(url);
+        };
+        qrImage.onerror = function() {
+            // Fallback to simple text display
+            console.error('Failed to load QR code image');
+            qrCanvas.style.display = 'none';
+            showQRModal(url);
+        };
+        // Using api.qrserver.com
+        qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodedUrl}`;
+    }
+    
+    function showQRModal(url) {
+        qrUrl.textContent = url;
+        qrModal.classList.add('visible');
+        document.body.classList.add('no-scroll');
+        lastFocusedBeforeQR = document.activeElement;
+        qrModalClose.focus();
+        qrCanvas.style.display = 'block'; // Make sure canvas is visible
+    }
+
+    function closeQRModal() {
+        qrModal.classList.remove('visible');
+        document.body.classList.remove('no-scroll');
+        if (lastFocusedBeforeQR) {
+            lastFocusedBeforeQR.focus();
+            lastFocusedBeforeQR = null;
+        }
+    }
+
+    // QR Code button click handlers
+    qrButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = button.getAttribute('data-qr-url');
+            if (url) {
+                openQRModal(url);
+            }
+        });
+    });
+
+    // QR Modal close handlers
+    qrModalClose.addEventListener('click', closeQRModal);
+    qrModal.addEventListener('click', (e) => {
+        if (e.target === qrModal) {
+            closeQRModal();
+        }
+    });
+
+    // QR Modal keyboard handlers
+    document.addEventListener('keydown', (e) => {
+        if (qrModal.classList.contains('visible') && e.key === 'Escape') {
+            closeQRModal();
+        }
+    });
+
+    // Focus trap within QR modal
+    qrModal.addEventListener('keydown', (e) => {
+        if (!qrModal.classList.contains('visible')) return;
+        if (e.key !== 'Tab') return;
+        const focusable = qrModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        const focusables = Array.from(focusable).filter(el => !el.hasAttribute('disabled'));
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        }
+    });
+}
+
+// Initialize QR Code Modal - Works with or without library (uses online API as fallback)
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize immediately - doesn't require library (will use online API if library not available)
+    initQRCodeModal();
+});
+

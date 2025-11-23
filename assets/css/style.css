@@ -262,11 +262,53 @@ body::before {
 .project-tags { margin-bottom: 20px; }
 .project-tags span { background-color: #e9ecef; color: var(--text-color-secondary); padding: 6px 12px; border-radius: 6px; font-size: 0.95em; margin-right: 8px; margin-bottom: 8px; display: inline-block; font-weight: 500; }
 .project-links { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 25px; }
-.project-links a { text-decoration: none; font-weight: 700; padding: 14px 24px; border-radius: 12px; display: inline-flex; align-items: center; font-size: 0.95em; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.320, 1.275); border: 2px solid transparent; position: relative; overflow: hidden; letter-spacing: 0.3px; }
-.project-links a i { margin-right: 10px; font-size: 1.2em; transition: transform 0.3s ease; }
-.project-links a.btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); border: 2px solid transparent; }
-.project-links a.btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5); background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); }
-.project-links a.btn-primary:hover i { transform: translateX(2px); }
+.project-links a,
+.project-links button { 
+    text-decoration: none; 
+    font-weight: 700; 
+    padding: 14px 24px; 
+    border-radius: 12px; 
+    display: inline-flex; 
+    align-items: center; 
+    font-size: 0.95em; 
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+    border: 2px solid transparent; 
+    position: relative; 
+    overflow: hidden; 
+    letter-spacing: 0.3px; 
+}
+.project-links button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+.project-links a i,
+.project-links button i { 
+    margin-right: 10px; 
+    font-size: 1.2em; 
+    transition: transform 0.3s ease; 
+}
+.project-links a.btn-primary,
+.project-links button.btn-primary { 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+    color: white; 
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); 
+    border: 2px solid transparent; 
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+}
+.project-links a.btn-primary:hover,
+.project-links button.btn-primary:hover { 
+    transform: translateY(-3px) scale(1.02); 
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5); 
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); 
+}
+.project-links a.btn-primary:hover i,
+.project-links button.btn-primary:hover i { 
+    transform: translateX(2px); 
+}
 .project-links a.btn-secondary { background: rgba(255, 255, 255, 0.9); color: var(--text-color); border: 2px solid #e2e8f0; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 .project-links a.btn-secondary:hover { border-color: var(--primary-color); color: var(--primary-color); background: rgba(37, 99, 235, 0.08); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15); }
 .project-links a.btn-secondary:hover i { transform: rotate(360deg); }
@@ -348,8 +390,20 @@ img, video { max-width: 100%; height: auto; }
     .project-content p { font-size: 1em; line-height: 1.6; }
     .project-tags span { font-size: 0.88em; padding: 5px 10px; }
     .project-links { flex-direction: column; gap: 10px; margin-top: 16px; }
-    .project-links a { text-align: center; justify-content: center; padding: 14px 16px; min-height: 44px; min-width: 44px; font-size: 0.95em; }
-    .project-links a i { margin-right: 8px; font-size: 1.1em; }
+    .project-links a,
+    .project-links button { 
+        text-align: center; 
+        justify-content: center; 
+        padding: 14px 16px; 
+        min-height: 44px; 
+        min-width: 44px; 
+        font-size: 0.95em; 
+    }
+    .project-links a i,
+    .project-links button i { 
+        margin-right: 8px; 
+        font-size: 1.1em; 
+    }
     .filter-btn { min-height: 44px; min-width: 44px; }
     .filter-btn-large { min-height: 44px; }
     .project-thumbnail-link { width: 100%; height: 200px; }
@@ -432,4 +486,127 @@ body.no-scroll { overflow: hidden; }
 .fade-in.revealed,
 .scroll-reveal.revealed {
     will-change: auto;
+}
+
+/* QR Code Modal */
+.qr-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.qr-modal.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.qr-modal-content {
+    background: var(--card-bg-color);
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.qr-modal.visible .qr-modal-content {
+    transform: scale(1);
+}
+
+.qr-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 32px;
+    color: var(--text-color-secondary);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+.qr-modal-close:hover,
+.qr-modal-close:focus {
+    background: var(--border-color);
+    color: var(--text-color);
+    outline: none;
+}
+
+.qr-modal-content h3 {
+    margin: 0 0 24px 0;
+    font-size: 1.5em;
+    color: var(--text-color);
+}
+
+.qr-code-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.qr-code-container canvas {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.qr-code-url {
+    font-size: 0.9em;
+    color: var(--text-color-secondary);
+    word-break: break-all;
+    margin: 0;
+    padding: 12px;
+    background: var(--bg-color);
+    border-radius: 8px;
+}
+
+/* QR Code Button - Now uses btn-primary style */
+.btn-qr {
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .qr-modal-content {
+        padding: 24px;
+        width: 95%;
+    }
+    
+    .qr-modal-content h3 {
+        font-size: 1.3em;
+        margin-bottom: 20px;
+    }
+    
+    .qr-code-container {
+        padding: 16px;
+    }
+    
+    .qr-code-url {
+        font-size: 0.85em;
+    }
 }
